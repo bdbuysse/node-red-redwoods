@@ -2031,17 +2031,6 @@
         ]
     },
     {
-        "id": "78ba77e35e49d1ed",
-        "type": "link out",
-        "z": "e851f138fbd198fe",
-        "name": "link out 1",
-        "mode": "link",
-        "links": [],
-        "x": 1175,
-        "y": 140,
-        "wires": []
-    },
-    {
         "id": "ca603d357a1edf87",
         "type": "subflow:2b79d1365169f919",
         "z": "e851f138fbd198fe",
