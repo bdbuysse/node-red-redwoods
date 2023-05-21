@@ -83,7 +83,7 @@
     {
         "id": "5a34b650.a16c48",
         "type": "tab",
-        "label": "Dynamic DNS",
+        "label": "Google Services",
         "disabled": false,
         "info": ""
     },
@@ -651,6 +651,7 @@
     {
         "id": "09f2c70562eb4732",
         "type": "google-home-conf",
+        "d": true,
         "username": "bdbuysse"
     },
     {
@@ -8011,25 +8012,6 @@
         ]
     },
     {
-        "id": "f15da34b.ca27d",
-        "type": "function",
-        "z": "5a34b650.a16c48",
-        "name": "",
-        "func": "var ip = msg.payload.publicIPv4;\nvar publicIPv4 = flow.get('publicIPv4');\n\nif (ip === publicIPv4) {\n    return [{payload: publicIPv4},null];\n} else {\n    msg.url = \"https://domains.google.com/nic/update?hostname=pines.edgewoods.net&myip=\"+ip;\n    msg.method = \"POST\";\n    return [null, msg];\n}\n",
-        "outputs": 2,
-        "noerr": 0,
-        "x": 840,
-        "y": 240,
-        "wires": [
-            [
-                "88cd07b1.5bc808"
-            ],
-            [
-                "6a62d08f.52dc2"
-            ]
-        ]
-    },
-    {
         "id": "6a62d08f.52dc2",
         "type": "http request",
         "z": "5a34b650.a16c48",
@@ -8041,9 +8023,11 @@
         "tls": "88e1b19a.74497",
         "persist": false,
         "proxy": "",
+        "insecureHTTPParser": false,
         "authType": "basic",
         "senderr": false,
-        "x": 1030,
+        "headers": [],
+        "x": 870,
         "y": 340,
         "wires": [
             [
@@ -8081,50 +8065,8 @@
         "tostatus": false,
         "complete": "true",
         "targetType": "full",
-        "x": 1190,
+        "x": 1030,
         "y": 340,
-        "wires": []
-    },
-    {
-        "id": "c0742c04.c4e7c",
-        "type": "change",
-        "z": "5a34b650.a16c48",
-        "name": "publicIPv4",
-        "rules": [
-            {
-                "t": "set",
-                "p": "publicIPv4",
-                "pt": "flow",
-                "to": "payload.publicIPv4",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 700,
-        "y": 240,
-        "wires": [
-            [
-                "f15da34b.ca27d"
-            ]
-        ]
-    },
-    {
-        "id": "88cd07b1.5bc808",
-        "type": "debug",
-        "z": "5a34b650.a16c48",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "x": 1010,
-        "y": 240,
         "wires": []
     },
     {
@@ -8145,6 +8087,16 @@
                 "6a62d08f.52dc2"
             ]
         ]
+    },
+    {
+        "id": "4a1bbddb60357147",
+        "type": "comment",
+        "z": "5a34b650.a16c48",
+        "name": "Dynamic DNS",
+        "info": "Credentials are stored in external enviroment variable $(DNSUSER) and $(DNSPASs)",
+        "x": 370,
+        "y": 200,
+        "wires": []
     },
     {
         "id": "b4443f5e4343bfcb",
@@ -8643,8 +8595,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 320,
-        "y": 320,
+        "x": 380,
+        "y": 400,
         "wires": [
             []
         ]
@@ -8654,7 +8606,7 @@
         "type": "function",
         "z": "44c96c079469bdd0",
         "name": "loop example",
-        "func": "let data = msg.payload.payload.result.data;\nlet standard_circuits = [];\n\n\nfor (var i = 0 ; i < data.length; i++) {\n    //if (events[i].n !=[\"raw_data\", \"unknown_event\"] ){\n    //if (events[i].n != \"raw_data\" || events[i].n != \"unknown_event\" ) {\n    if (data[i].celltype == 131) {\n            standard_circuits.push(data[i].controller+\":\"+data[i].cellname+\":CONTROL TEMP\");\n            standard_circuits.push(data[i].controller+\":\"+data[i].cellname+\":CIRCUIT STATE\");\n    } else {}\n}\nflow.set ('standard_circuits', standard_circuits)\n\n/*\n\n        influxMsg = [{\n            measurement: events[i].n,\n            payload: [{\n            dev_id: dev_id,\n            dev_eui: hardware_serial,\n            msg_counter: counter,\n            n: events[i].n,\n            u: events[i].u,\n            v: events[i].v,\n        },{\n            app_id: app_id,\n            device_id: dev_id,\n            event_name: events[i].n\n        }],}];\n        node.send(influxMsg);\n    } else {}\n}    \nvar equipment_pass = [];\nvar equipment_fail = [];\nvar to_do = flow.get('to_do');\n\n\n\nfor (var i = 0 ; i < results.length; i++) {\n    if (results[i] == \"[OK]\"){\n        equipment_pass.push(equipment_id);\n        }\n    else {\n        equipment_fail.push(equipment_id);\n        }\n}\n*/",
+        "func": "let data = msg.payload.payload.result.data;\nlet standard_circuits = [];\n\n\nfor (var i = 0 ; i < data.length; i++) {\n    //if (events[i].n !=[\"raw_data\", \"unknown_event\"] ){\n    //if (events[i].n != \"raw_data\" || events[i].n != \"unknown_event\" ) {\n    if (data[i].celltype == 131) {\n            standard_circuits.push(data[i].controller+\":\"+data[i].cellname+\":CONTROL TEMP\");\n            standard_circuits.push(data[i].controller+\":\"+data[i].cellname+\":CIRCUIT STATE\");\n    } else {}\n}\nflow.set ('standard_circuits', standard_circuits)\n//node.send(standard_circuits);\n/*\n\n        influxMsg = [{\n            measurement: events[i].n,\n            payload: [{\n            dev_id: dev_id,\n            dev_eui: hardware_serial,\n            msg_counter: counter,\n            n: events[i].n,\n            u: events[i].u,\n            v: events[i].v,\n        },{\n            app_id: app_id,\n            device_id: dev_id,\n            event_name: events[i].n\n        }],}];\n        node.send(influxMsg);\n    } else {}\n}    \nvar equipment_pass = [];\nvar equipment_fail = [];\nvar to_do = flow.get('to_do');\n\n\n\nfor (var i = 0 ; i < results.length; i++) {\n    if (results[i] == \"[OK]\"){\n        equipment_pass.push(equipment_id);\n        }\n    else {\n        equipment_fail.push(equipment_id);\n        }\n}\n*/",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -8941,7 +8893,8 @@
         "y": 340,
         "wires": [
             [
-                "8fbc6af32c8a10b2"
+                "8fbc6af32c8a10b2",
+                "f21eb7ab1f744da2"
             ]
         ]
     },
@@ -8949,7 +8902,7 @@
         "id": "8fbc6af32c8a10b2",
         "type": "debug",
         "z": "44c96c079469bdd0",
-        "name": "",
+        "name": "zwave #",
         "active": true,
         "tosidebar": true,
         "console": false,
@@ -8958,8 +8911,104 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1350,
-        "y": 340,
+        "x": 1360,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "f21eb7ab1f744da2",
+        "type": "switch",
+        "z": "44c96c079469bdd0",
+        "name": "topic",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "zwave/bdb_office/#",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1390,
+        "y": 420,
+        "wires": [
+            [
+                "c9f2b8345590aa2f"
+            ],
+            [
+                "38f98df940fd1450"
+            ]
+        ]
+    },
+    {
+        "id": "c9f2b8345590aa2f",
+        "type": "debug",
+        "z": "44c96c079469bdd0",
+        "name": "bdb_office",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1550,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "38f98df940fd1450",
+        "type": "debug",
+        "z": "44c96c079469bdd0",
+        "name": "zwave_otherwise",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1570,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "ac1375bc70a73e9b",
+        "type": "status",
+        "z": "44c96c079469bdd0",
+        "name": "",
+        "scope": null,
+        "x": 560,
+        "y": 900,
+        "wires": [
+            [
+                "be9b49b4959ca0c9"
+            ]
+        ]
+    },
+    {
+        "id": "be9b49b4959ca0c9",
+        "type": "debug",
+        "z": "44c96c079469bdd0",
+        "name": "status",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 710,
+        "y": 900,
         "wires": []
     }
 ]
