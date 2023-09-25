@@ -18,7 +18,7 @@
         "id": "2500c006.91d75",
         "type": "tab",
         "label": "Dark Sky",
-        "disabled": false,
+        "disabled": true,
         "info": ""
     },
     {
@@ -76,7 +76,7 @@
         "id": "b78ed3d06ab6db61",
         "type": "tab",
         "label": "GoogleHome",
-        "disabled": false,
+        "disabled": true,
         "info": "",
         "env": []
     },
@@ -165,32 +165,6 @@
                 }
             ]
         }
-    },
-    {
-        "id": "39c85520361d1f91",
-        "type": "mqtt-broker",
-        "name": "edgewoods",
-        "broker": "10.10.10.10",
-        "port": "1883",
-        "clientid": "",
-        "autoConnect": true,
-        "usetls": false,
-        "protocolVersion": "4",
-        "keepalive": "60",
-        "cleansession": true,
-        "birthTopic": "",
-        "birthQos": "0",
-        "birthPayload": "",
-        "birthMsg": {},
-        "closeTopic": "",
-        "closeQos": "0",
-        "closePayload": "",
-        "closeMsg": {},
-        "willTopic": "",
-        "willQos": "0",
-        "willPayload": "",
-        "willMsg": {},
-        "sessionExpiry": ""
     },
     {
         "id": "322cbb2615da3e18",
@@ -623,32 +597,6 @@
         "influxdbVersion": "1.x"
     },
     {
-        "id": "b005dcb8a9e6bb86",
-        "type": "mqtt-broker",
-        "name": "GCP-edgewoods",
-        "broker": "pines.edgewoods.net",
-        "port": "1883",
-        "clientid": "",
-        "autoConnect": true,
-        "usetls": false,
-        "protocolVersion": "4",
-        "keepalive": "60",
-        "cleansession": true,
-        "birthTopic": "",
-        "birthQos": "0",
-        "birthPayload": "",
-        "birthMsg": {},
-        "closeTopic": "",
-        "closeQos": "0",
-        "closePayload": "",
-        "closeMsg": {},
-        "willTopic": "",
-        "willQos": "0",
-        "willPayload": "",
-        "willMsg": {},
-        "sessionExpiry": ""
-    },
-    {
         "id": "09f2c70562eb4732",
         "type": "google-home-conf",
         "d": true,
@@ -670,8 +618,8 @@
     {
         "id": "3b0217bc.de55b8",
         "type": "mqtt-broker",
-        "name": "",
-        "broker": "mqtt",
+        "name": "Redwoods MQTT",
+        "broker": "$(RWMQTT)",
         "port": "1883",
         "clientid": "",
         "autoConnect": true,
@@ -754,7 +702,7 @@
     {
         "id": "ea745cefbcdbc96f",
         "type": "mqtt-broker",
-        "name": "",
+        "name": "pines_mqtt",
         "broker": "$(MQTTPINES)",
         "port": "1883",
         "clientid": "",
@@ -763,6 +711,7 @@
         "protocolVersion": "4",
         "keepalive": "60",
         "cleansession": true,
+        "autoUnsubscribe": true,
         "birthTopic": "",
         "birthQos": "0",
         "birthPayload": "",
@@ -1593,7 +1542,8 @@
         "name": "mboxTTN",
         "links": [
             "56a1fccf.ecb884",
-            "d43cfd50.963c4"
+            "d43cfd50.963c4",
+            "bc0b9d76a37293e9"
         ],
         "x": 1445,
         "y": 2500,
@@ -2894,7 +2844,7 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "b005dcb8a9e6bb86",
+        "broker": "3b0217bc.de55b8",
         "x": 730,
         "y": 220,
         "wires": []
@@ -2907,7 +2857,7 @@
         "topic": "zwave/#",
         "qos": "2",
         "datatype": "auto",
-        "broker": "39c85520361d1f91",
+        "broker": "ea745cefbcdbc96f",
         "nl": false,
         "rap": true,
         "rh": 0,
@@ -3336,7 +3286,7 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "39c85520361d1f91",
+        "broker": "3b0217bc.de55b8",
         "x": 1340,
         "y": 280,
         "wires": []
@@ -3611,7 +3561,7 @@
         "topic": "zwave/cov",
         "qos": "2",
         "datatype": "auto",
-        "broker": "39c85520361d1f91",
+        "broker": "3b0217bc.de55b8",
         "nl": false,
         "rap": false,
         "inputs": 0,
@@ -4277,7 +4227,7 @@
         "topic": "zwave/lux/#",
         "qos": "2",
         "datatype": "auto",
-        "broker": "39c85520361d1f91",
+        "broker": "3b0217bc.de55b8",
         "nl": false,
         "rap": false,
         "inputs": 0,
@@ -4407,7 +4357,7 @@
         "topic": "fail2ban",
         "qos": "2",
         "datatype": "auto",
-        "broker": "39c85520361d1f91",
+        "broker": "3b0217bc.de55b8",
         "nl": false,
         "rap": false,
         "inputs": 0,
@@ -4507,6 +4457,22 @@
         "wires": []
     },
     {
+        "id": "bc0b9d76a37293e9",
+        "type": "link in",
+        "z": "aa130715069a6eeb",
+        "name": "mboxTTN",
+        "links": [
+            "e7228b7d.dfabb8"
+        ],
+        "x": 135,
+        "y": 460,
+        "wires": [
+            [
+                "e29fe4f6bcfaa0b6"
+            ]
+        ]
+    },
+    {
         "id": "012729026d3687ab",
         "type": "mqtt in",
         "z": "f905b49ce5011782",
@@ -4514,7 +4480,7 @@
         "topic": "gcp/#",
         "qos": "2",
         "datatype": "auto",
-        "broker": "b005dcb8a9e6bb86",
+        "broker": "ea745cefbcdbc96f",
         "nl": false,
         "rap": true,
         "rh": 0,
@@ -7142,7 +7108,7 @@
         "topic": "zwave/cov",
         "qos": "2",
         "datatype": "auto",
-        "broker": "39c85520361d1f91",
+        "broker": "3b0217bc.de55b8",
         "nl": false,
         "rap": false,
         "inputs": 0,
@@ -7776,56 +7742,6 @@
         "wires": []
     },
     {
-        "id": "2d992e106e2dcbae",
-        "type": "mqtt in",
-        "z": "c2dba5e02909beed",
-        "name": "",
-        "topic": "darksky",
-        "qos": "2",
-        "datatype": "auto",
-        "broker": "39c85520361d1f91",
-        "nl": false,
-        "rap": false,
-        "inputs": 0,
-        "x": 150,
-        "y": 360,
-        "wires": [
-            [
-                "ad904e585359ce1d"
-            ]
-        ]
-    },
-    {
-        "id": "0d2288ee9f8840d1",
-        "type": "debug",
-        "z": "c2dba5e02909beed",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "x": 390,
-        "y": 360,
-        "wires": []
-    },
-    {
-        "id": "ad904e585359ce1d",
-        "type": "json",
-        "z": "c2dba5e02909beed",
-        "name": "",
-        "property": "payload",
-        "action": "",
-        "pretty": false,
-        "x": 270,
-        "y": 360,
-        "wires": [
-            [
-                "0d2288ee9f8840d1"
-            ]
-        ]
-    },
-    {
         "id": "1ee75df38432d7e2",
         "type": "debug",
         "z": "c2dba5e02909beed",
@@ -7918,12 +7834,13 @@
         "id": "76e907dd89c5b323",
         "type": "google-home",
         "z": "b78ed3d06ab6db61",
+        "d": true,
         "conf": "09f2c70562eb4732",
         "device": "17955",
         "acknowledge": true,
-        "name": "Doorbell",
+        "name": "",
         "topic": "",
-        "x": 170,
+        "x": 200,
         "y": 140,
         "wires": [
             [
@@ -7944,7 +7861,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 360,
+        "x": 440,
         "y": 140,
         "wires": []
     },
@@ -8222,7 +8139,7 @@
         "name": "Auth Flow",
         "info": "",
         "x": 160,
-        "y": 140,
+        "y": 160,
         "wires": []
     },
     {
@@ -8884,7 +8801,7 @@
         "topic": "#",
         "qos": "2",
         "datatype": "auto-detect",
-        "broker": "39c85520361d1f91",
+        "broker": "3b0217bc.de55b8",
         "nl": false,
         "rap": true,
         "rh": 0,
@@ -8894,7 +8811,8 @@
         "wires": [
             [
                 "8fbc6af32c8a10b2",
-                "f21eb7ab1f744da2"
+                "f21eb7ab1f744da2",
+                "37c41c03b034c372"
             ]
         ]
     },
@@ -8903,7 +8821,7 @@
         "type": "debug",
         "z": "44c96c079469bdd0",
         "name": "zwave #",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -9009,6 +8927,48 @@
         "statusType": "auto",
         "x": 710,
         "y": 900,
+        "wires": []
+    },
+    {
+        "id": "37c41c03b034c372",
+        "type": "switch",
+        "z": "44c96c079469bdd0",
+        "name": "Electric Consumption",
+        "property": "payload.propertyKeyName",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Electric Consumption [V]",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1460,
+        "y": 640,
+        "wires": [
+            [
+                "7242a88226c33e17"
+            ]
+        ]
+    },
+    {
+        "id": "7242a88226c33e17",
+        "type": "debug",
+        "z": "44c96c079469bdd0",
+        "name": "Electric_V_Consumed",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1700,
+        "y": 640,
         "wires": []
     }
 ]
