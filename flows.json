@@ -11,7 +11,7 @@
         "id": "abf038f.43da5c8",
         "type": "tab",
         "label": "Home Assistant",
-        "disabled": true,
+        "disabled": false,
         "info": ""
     },
     {
@@ -886,7 +886,8 @@
                 "46acc3fa.0e350c"
             ],
             [
-                "e9daff03243840f9"
+                "e9daff03243840f9",
+                "de2ec177c8fdf56b"
             ],
             [
                 "e9daff03243840f9"
@@ -1055,8 +1056,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 790,
-        "y": 1040,
+        "x": 830,
+        "y": 1100,
         "wires": []
     },
     {
@@ -2058,8 +2059,92 @@
         "name": "TTNv3 Inbound from GCP",
         "info": "",
         "x": 210,
-        "y": 60,
+        "y": 80,
         "wires": []
+    },
+    {
+        "id": "de2ec177c8fdf56b",
+        "type": "function",
+        "z": "e851f138fbd198fe",
+        "name": "Supervisory Event Loop",
+        "func": "let dev_id = msg.ttnv3_payload.end_device_ids.device_id;\nlet dev_eui = msg.ttnv3_payload.end_device_ids.dev_eui;\nlet device_id = msg.payload.end_device_ids.device_id;\nlet app_id = msg.payload.end_device_ids.application_ids.application_id;\nlet decoded_payload = msg.decoded_payload;\nlet event_types = msg.decoded_payload.event_type.description\nlet events = msg.decoded_payload.events;\nconst influxMsg = {};\n\nconst supervisory_msg = {\n    dev_id: dev_id,\n    dev_eui: dev_eui,\n    decoded_payload: decoded_payload,\n    event_types: event_types,\n    events: events\n};\n\nfor (var i = 0; i < events.length; i++) {\n    if (events[i].n != \"raw_data\") {\n        // @ts-ignore\n        influxMsg = [{\n            measurement: events[i].n,\n            payload: [{\n                dev_id: dev_id,\n                dev_eui: dev_eui,\n                n: events[i].n,\n                u: events[i].u,\n                v: events[i].v,\n            }, {\n                app_id: app_id,\n                device_id: dev_id,\n                event_name: events[i].n\n            }],\n        }];\n        node.send(influxMsg);\n    } else { }\n}\nreturn influxMsg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 870,
+        "y": 1040,
+        "wires": [
+            [
+                "132df108b01603aa"
+            ]
+        ]
+    },
+    {
+        "id": "132df108b01603aa",
+        "type": "debug",
+        "z": "e851f138fbd198fe",
+        "name": "Supervisory",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1090,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "3d13014a0b7f9450",
+        "type": "debug",
+        "z": "e851f138fbd198fe",
+        "name": "Supervisory",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 970,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "fd4ca9b7c0e02d94",
+        "type": "inject",
+        "z": "e851f138fbd198fe",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"topic\":\"TTN/radioBridge\",\"payload\":{\"end_device_ids\":{\"device_id\":\"eui-ccc0790000ee517e\",\"application_ids\":{\"application_id\":\"edgewoods-radiobridge\"},\"dev_eui\":\"CCC0790000EE517E\",\"join_eui\":\"0101010101010101\",\"dev_addr\":\"260C8335\"},\"correlation_ids\":[\"gs:uplink:01HEKWAW8CK3QZ8ECDVPEC0YAK\"],\"received_at\":\"2023-11-07T03:13:36.736278118Z\",\"uplink_message\":{\"session_key_id\":\"AYfufZciu1tS1b6nNhK30g==\",\"f_port\":2,\"f_cnt\":17555,\"frm_payload\":\"GQEZLigVEC5gAEg=\",\"decoded_payload\":{\"Message\":\"Event: Supervisory, Battery Voltage: 2.8V, Accumulation Count: 72, Tamper Since Last Reset: 1, Current Tamper State: 1, Error With Last Downlink: 0, Battery Low: 0, Radio Comm Error: 1, Packet Counter: 9, Protocol Version: 1\",\"event_type\":{\"description\":\"Supervisory\"},\"events\":[{\"n\":\"battery_voltage\",\"u\":\"V\",\"v\":\"2.8\"},{\"n\":\"accumulation\",\"u\":\"ct\",\"v\":72},{\"n\":\"tamper_last_reset\",\"u\":\"curr\",\"v\":1},{\"n\":\"tamper_state\",\"u\":\"curr\",\"v\":1},{\"n\":\"downlink_error\",\"u\":\"status\",\"v\":0},{\"n\":\"radio_error\",\"u\":\"status\",\"v\":1}]},\"rx_metadata\":[{\"gateway_ids\":{\"gateway_id\":\"edgewoods-inn-1\",\"eui\":\"008000000001644F\"},\"timestamp\":1936300083,\"rssi\":-57,\"channel_rssi\":-57,\"snr\":7.5,\"uplink_token\":\"Ch0KGwoPZWRnZXdvb2RzLWlubi0xEggAgAAAAAFkTxCzsKabBxoMCODWpqoGENug//kBILiO6qOti4kC\",\"channel_index\":2,\"received_at\":\"2023-11-07T03:13:36.491088104Z\"},{\"gateway_ids\":{\"gateway_id\":\"edgewood-ttn-001\",\"eui\":\"58A0CBFFFE803199\"},\"time\":\"2023-11-07T03:13:36.444912910Z\",\"timestamp\":3117863875,\"rssi\":-71,\"channel_rssi\":-71,\"snr\":8.5,\"uplink_token\":\"Ch4KHAoQZWRnZXdvb2QtdHRuLTAwMRIIWKDL//6AMZkQw6fbzgsaDAjg1qaqBhCrjeqDAiC446z53s4E\",\"received_at\":\"2023-11-07T03:13:36.483516874Z\"}],\"settings\":{\"data_rate\":{\"lora\":{\"bandwidth\":125000,\"spreading_factor\":7,\"coding_rate\":\"4/5\"}},\"frequency\":\"904300000\",\"timestamp\":1936300083},\"received_at\":\"2023-11-07T03:13:36.525944533Z\",\"consumed_airtime\":\"0.061696s\",\"network_ids\":{\"net_id\":\"000013\",\"ns_id\":\"EC656E0000000182\",\"tenant_id\":\"ttn\",\"cluster_id\":\"nam1\",\"cluster_address\":\"nam1.cloud.thethings.network\"}},\"translator\":\"radioBridge\"},\"qos\":0,\"retain\":false,\"_msgid\":\"d77ca25f5a3b0807\",\"_event\":\"node:61280ebd76c6546b\",\"decoded_payload\":{\"Message\":\"Event: Supervisory, Battery Voltage: 2.8V, Accumulation Count: 72, Tamper Since Last Reset: 1, Current Tamper State: 1, Error With Last Downlink: 0, Battery Low: 0, Radio Comm Error: 1, Packet Counter: 9, Protocol Version: 1\",\"event_type\":{\"description\":\"Supervisory\"},\"events\":[{\"n\":\"battery_voltage\",\"u\":\"V\",\"v\":\"2.8\"},{\"n\":\"accumulation\",\"u\":\"ct\",\"v\":72},{\"n\":\"tamper_last_reset\",\"u\":\"curr\",\"v\":1},{\"n\":\"tamper_state\",\"u\":\"curr\",\"v\":1},{\"n\":\"downlink_error\",\"u\":\"status\",\"v\":0},{\"n\":\"radio_error\",\"u\":\"status\",\"v\":1}]},\"ttnv3_payload\":{\"end_device_ids\":{\"device_id\":\"eui-ccc0790000ee517e\",\"application_ids\":{\"application_id\":\"edgewoods-radiobridge\"},\"dev_eui\":\"CCC0790000EE517E\",\"join_eui\":\"0101010101010101\",\"dev_addr\":\"260C8335\"},\"correlation_ids\":[\"gs:uplink:01HEKWAW8CK3QZ8ECDVPEC0YAK\"],\"received_at\":\"2023-11-07T03:13:36.736278118Z\",\"uplink_message\":{\"session_key_id\":\"AYfufZciu1tS1b6nNhK30g==\",\"f_port\":2,\"f_cnt\":17555,\"frm_payload\":\"GQEZLigVEC5gAEg=\",\"decoded_payload\":{\"Message\":\"Event: Supervisory, Battery Voltage: 2.8V, Accumulation Count: 72, Tamper Since Last Reset: 1, Current Tamper State: 1, Error With Last Downlink: 0, Battery Low: 0, Radio Comm Error: 1, Packet Counter: 9, Protocol Version: 1\",\"event_type\":{\"description\":\"Supervisory\"},\"events\":[{\"n\":\"battery_voltage\",\"u\":\"V\",\"v\":\"2.8\"},{\"n\":\"accumulation\",\"u\":\"ct\",\"v\":72},{\"n\":\"tamper_last_reset\",\"u\":\"curr\",\"v\":1},{\"n\":\"tamper_state\",\"u\":\"curr\",\"v\":1},{\"n\":\"downlink_error\",\"u\":\"status\",\"v\":0},{\"n\":\"radio_error\",\"u\":\"status\",\"v\":1}]},\"rx_metadata\":[{\"gateway_ids\":{\"gateway_id\":\"edgewoods-inn-1\",\"eui\":\"008000000001644F\"},\"timestamp\":1936300083,\"rssi\":-57,\"channel_rssi\":-57,\"snr\":7.5,\"uplink_token\":\"Ch0KGwoPZWRnZXdvb2RzLWlubi0xEggAgAAAAAFkTxCzsKabBxoMCODWpqoGENug//kBILiO6qOti4kC\",\"channel_index\":2,\"received_at\":\"2023-11-07T03:13:36.491088104Z\"},{\"gateway_ids\":{\"gateway_id\":\"edgewood-ttn-001\",\"eui\":\"58A0CBFFFE803199\"},\"time\":\"2023-11-07T03:13:36.444912910Z\",\"timestamp\":3117863875,\"rssi\":-71,\"channel_rssi\":-71,\"snr\":8.5,\"uplink_token\":\"Ch4KHAoQZWRnZXdvb2QtdHRuLTAwMRIIWKDL//6AMZkQw6fbzgsaDAjg1qaqBhCrjeqDAiC446z53s4E\",\"received_at\":\"2023-11-07T03:13:36.483516874Z\"}],\"settings\":{\"data_rate\":{\"lora\":{\"bandwidth\":125000,\"spreading_factor\":7,\"coding_rate\":\"4/5\"}},\"frequency\":\"904300000\",\"timestamp\":1936300083},\"received_at\":\"2023-11-07T03:13:36.525944533Z\",\"consumed_airtime\":\"0.061696s\",\"network_ids\":{\"net_id\":\"000013\",\"ns_id\":\"EC656E0000000182\",\"tenant_id\":\"ttn\",\"cluster_id\":\"nam1\",\"cluster_address\":\"nam1.cloud.thethings.network\"}},\"translator\":\"radioBridge\"},\"device_name\":\"temp-rh-master-bedroom\"}",
+        "payloadType": "json",
+        "x": 650,
+        "y": 720,
+        "wires": [
+            [
+                "3d13014a0b7f9450",
+                "026a9c8085a7862c"
+            ]
+        ]
     },
     {
         "id": "4081a840.16fb98",
@@ -2067,20 +2152,10 @@
         "z": "abf038f.43da5c8",
         "name": "",
         "server": "5010ad6c.df5ca4",
-        "version": 2,
+        "version": 3,
+        "exposeAsEntityConfig": "",
         "eventType": "",
-        "exposeToHomeAssistant": false,
         "eventData": "",
-        "haConfig": [
-            {
-                "property": "name",
-                "value": ""
-            },
-            {
-                "property": "icon",
-                "value": ""
-            }
-        ],
         "waitForRunning": true,
         "outputProperties": [
             {
@@ -2162,29 +2237,39 @@
         "z": "abf038f.43da5c8",
         "name": "",
         "server": "5010ad6c.df5ca4",
-        "version": 2,
-        "exposeToHomeAssistant": false,
-        "haConfig": [
-            {
-                "property": "name",
-                "value": ""
-            },
-            {
-                "property": "icon",
-                "value": ""
-            }
-        ],
-        "updateinterval": "12",
+        "version": 3,
+        "exposeAsEntityConfig": "",
+        "updateInterval": "12",
         "updateIntervalType": "num",
         "updateIntervalUnits": "hours",
-        "outputinitially": false,
-        "outputonchanged": true,
-        "entity_id": "sensor.bdb_steps",
-        "state_type": "str",
-        "halt_if": "",
-        "halt_if_type": "str",
-        "halt_if_compare": "is",
+        "outputInitially": false,
+        "outputOnChanged": true,
+        "entityId": "sensor.bdb_steps",
+        "stateType": "str",
+        "ifState": "",
+        "ifStateType": "str",
+        "ifStateOperator": "is",
         "outputs": 1,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "triggerId"
+            }
+        ],
         "x": 220,
         "y": 400,
         "wires": [
@@ -3350,7 +3435,7 @@
         "precisionV18FluxV20": "ms",
         "retentionPolicyV18Flux": "",
         "org": "edgewoods",
-        "bucket": "LoRaWAN",
+        "bucket": "redwoods",
         "x": 360,
         "y": 240,
         "wires": []
@@ -8020,8 +8105,9 @@
         "type": "function",
         "z": "978ca627078b4010",
         "name": "Login",
-        "func": "let user = env.get(\"UNIFIUSER\");\nlet password = env.get(\"UNIFIPASS\");\n\n\nmsg.url = \"http://udm.home.arpa/api/auth/login?remember=true\";\nmsg.method = \"POST\";\nmsg.headers = { \"Content-Type\":\"application/json;charset=UTF-8\"};\nmsg.payload = {\n    username: user,\n    password: password,\n//    remember: true\n};\n \nreturn msg;",
+        "func": "let user = env.get(\"UNIFIUSER\");\nlet password = env.get(\"UNIFIPASS\");\n\n\nmsg.url = \"http://10.10.10.1/api/auth/login?remember=true\";\nmsg.method = \"POST\";\nmsg.headers = { \"Content-Type\":\"application/json;charset=UTF-8\"};\nmsg.payload = {\n    username: user,\n    password: password,\n//    remember: true\n};\n \nreturn msg;",
         "outputs": 1,
+        "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
@@ -8085,11 +8171,13 @@
         "ret": "txt",
         "paytoqs": "ignore",
         "url": "",
-        "tls": "",
+        "tls": "322cbb2615da3e18",
         "persist": false,
         "proxy": "",
+        "insecureHTTPParser": false,
         "authType": "",
         "senderr": false,
+        "headers": [],
         "x": 510,
         "y": 260,
         "wires": [
