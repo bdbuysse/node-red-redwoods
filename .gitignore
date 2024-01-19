@@ -7,7 +7,8 @@ yarn-error.log*
 lerna-debug.log*
 .pnpm-debug.log*
 .flows.json.backup
-
+flows_cred.json
+.flows_cred.json
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
