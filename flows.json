@@ -74,6 +74,14 @@
         "env": []
     },
     {
+        "id": "8ee38fc4c4808acf",
+        "type": "tab",
+        "label": "Weather",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "5a34b650.a16c48",
         "type": "tab",
         "label": "Google Services",
@@ -997,7 +1005,7 @@
         "name": "Dragino",
         "info": "",
         "x": 130,
-        "y": 1180,
+        "y": 1380,
         "wires": []
     },
     {
@@ -1124,7 +1132,7 @@
         "name": "",
         "env": [],
         "x": 480,
-        "y": 1260,
+        "y": 1460,
         "wires": [
             [
                 "a25f330c2c765f5a"
@@ -1144,7 +1152,7 @@
             "20df563c9564c5bf"
         ],
         "x": 835,
-        "y": 1300,
+        "y": 1500,
         "wires": []
     },
     {
@@ -1892,11 +1900,12 @@
         "finalize": "",
         "libs": [],
         "x": 670,
-        "y": 1260,
+        "y": 1460,
         "wires": [
             [
                 "6e40d9f14980d493",
-                "121b57f67a65f74f"
+                "121b57f67a65f74f",
+                "460ff8a39e54b4e5"
             ],
             [
                 "6e40d9f14980d493",
@@ -1926,7 +1935,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 920,
-        "y": 1240,
+        "y": 1440,
         "wires": []
     },
     {
@@ -2029,7 +2038,7 @@
             "f659fd4290c21a88"
         ],
         "x": 155,
-        "y": 1260,
+        "y": 1460,
         "wires": [
             [
                 "d02558043be717f3",
@@ -2319,7 +2328,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 280,
-        "y": 1200,
+        "y": 1400,
         "wires": []
     },
     {
@@ -2370,7 +2379,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 190,
-        "y": 1380,
+        "y": 1580,
         "wires": [
             [
                 "3a36f2aff1175754"
@@ -2391,7 +2400,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 510,
-        "y": 1380,
+        "y": 1580,
         "wires": []
     },
     {
@@ -2403,7 +2412,7 @@
         "action": "",
         "pretty": false,
         "x": 350,
-        "y": 1380,
+        "y": 1580,
         "wires": [
             [
                 "ee89fbed7d4dbdd8",
@@ -3054,6 +3063,23 @@
         "statusType": "auto",
         "x": 2068.571533203125,
         "y": 2322.857177734375,
+        "wires": []
+    },
+    {
+        "id": "460ff8a39e54b4e5",
+        "type": "debug",
+        "z": "e851f138fbd198fe",
+        "name": "Battery Supervisory",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 950,
+        "y": 1380,
         "wires": []
     },
     {
@@ -5240,7 +5266,7 @@
         "timeout": "5",
         "timeoutUnits": "seconds",
         "rate": "1",
-        "nbRateUnits": "30",
+        "nbRateUnits": "2",
         "rateUnits": "second",
         "randomFirst": "1",
         "randomLast": "5",
@@ -5335,7 +5361,7 @@
         "type": "debug",
         "z": "aa130715069a6eeb",
         "name": "crowdsec debug",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -7704,7 +7730,8 @@
         "y": 860,
         "wires": [
             [
-                "aa2e486d.02fd58"
+                "aa2e486d.02fd58",
+                "c53d70790da06d52"
             ]
         ]
     },
@@ -8028,6 +8055,23 @@
         "targetType": "full",
         "x": 670,
         "y": 1640,
+        "wires": []
+    },
+    {
+        "id": "c53d70790da06d52",
+        "type": "debug",
+        "z": "171b21f.9e6efde",
+        "name": "Irrigation Restrictions",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1160,
+        "y": 920,
         "wires": []
     },
     {
@@ -8845,6 +8889,346 @@
         "statusType": "auto",
         "x": 350,
         "y": 320,
+        "wires": []
+    },
+    {
+        "id": "7cb2e4b6c4093704",
+        "type": "inject",
+        "z": "8ee38fc4c4808acf",
+        "name": "Inject",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 210,
+        "y": 160,
+        "wires": [
+            [
+                "7e4d23a7cbe3e74f",
+                "1da5d8034ab492e7"
+            ]
+        ]
+    },
+    {
+        "id": "7e4d23a7cbe3e74f",
+        "type": "function",
+        "z": "8ee38fc4c4808acf",
+        "name": "NOAA Alerts",
+        "func": "msg.url = 'https://api.weather.gov/alerts/active?area=MN';\nmsg.method = 'GET';\nmsg.headers = {\n    Accept: \"application/json\",\n    'Content-Type': \"application/json\",\n    //Authorization: bearer_token,\n};\nmsg.payload = {};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 120,
+        "wires": [
+            [
+                "e9e855b3be72b348"
+            ]
+        ]
+    },
+    {
+        "id": "e9e855b3be72b348",
+        "type": "http request",
+        "z": "8ee38fc4c4808acf",
+        "name": "",
+        "method": "use",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 650,
+        "y": 120,
+        "wires": [
+            [
+                "757ff9e975e3885a"
+            ]
+        ]
+    },
+    {
+        "id": "c498e2291585bff9",
+        "type": "debug",
+        "z": "8ee38fc4c4808acf",
+        "name": " NOAA Alerts",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1030,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "757ff9e975e3885a",
+        "type": "json",
+        "z": "8ee38fc4c4808acf",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 830,
+        "y": 120,
+        "wires": [
+            [
+                "c498e2291585bff9"
+            ]
+        ]
+    },
+    {
+        "id": "1da5d8034ab492e7",
+        "type": "function",
+        "z": "8ee38fc4c4808acf",
+        "name": "NOAA Forecast",
+        "func": "msg.url = 'https://api.weather.gov/points/45.1416055,-93.3747374';\nmsg.method = 'GET';\nmsg.headers = {\n    Accept: \"application/json\",\n    'Content-Type': \"application/json\",\n    //Authorization: bearer_token,\n};\nmsg.payload = {};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 200,
+        "wires": [
+            [
+                "a01f28bb4c3d0273"
+            ]
+        ]
+    },
+    {
+        "id": "a01f28bb4c3d0273",
+        "type": "http request",
+        "z": "8ee38fc4c4808acf",
+        "name": "",
+        "method": "use",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 650,
+        "y": 200,
+        "wires": [
+            [
+                "d2d147dc286881e8"
+            ]
+        ]
+    },
+    {
+        "id": "d2d147dc286881e8",
+        "type": "json",
+        "z": "8ee38fc4c4808acf",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 830,
+        "y": 200,
+        "wires": [
+            [
+                "645c2578359743e6",
+                "ec9eedeb77a08854",
+                "813bebbca01f2af9"
+            ]
+        ]
+    },
+    {
+        "id": "645c2578359743e6",
+        "type": "function",
+        "z": "8ee38fc4c4808acf",
+        "name": "NOAA Forecast",
+        "func": "var forecast = msg.payload.properties.forecast;\n\nmsg.url = forecast;\nmsg.method = 'GET';\nmsg.headers = {\n    Accept: \"application/json\",\n    'Content-Type': \"application/json\"\n};\nmsg.payload = {};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1060,
+        "y": 200,
+        "wires": [
+            [
+                "3706f264997f3e5b"
+            ]
+        ]
+    },
+    {
+        "id": "12dd7158ef8f3f94",
+        "type": "debug",
+        "z": "8ee38fc4c4808acf",
+        "name": " NOAA Forecast",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1620,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "3706f264997f3e5b",
+        "type": "http request",
+        "z": "8ee38fc4c4808acf",
+        "name": "",
+        "method": "use",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 1290,
+        "y": 200,
+        "wires": [
+            [
+                "efccfcb3830ed1af"
+            ]
+        ]
+    },
+    {
+        "id": "efccfcb3830ed1af",
+        "type": "json",
+        "z": "8ee38fc4c4808acf",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1450,
+        "y": 200,
+        "wires": [
+            [
+                "12dd7158ef8f3f94"
+            ]
+        ]
+    },
+    {
+        "id": "ec9eedeb77a08854",
+        "type": "function",
+        "z": "8ee38fc4c4808acf",
+        "name": "NOAA Hourly Forecast",
+        "func": "var forecast = msg.payload.properties.forecastHourly;\n\n\nmsg.url = forecast;\nmsg.method = 'GET';\nmsg.headers = {\n    Accept: \"application/json\",\n    'Content-Type': \"application/json\"\n};\nmsg.payload = {};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1080,
+        "y": 280,
+        "wires": [
+            [
+                "a2a2b747dfd2e987"
+            ]
+        ]
+    },
+    {
+        "id": "5cec6c538864112d",
+        "type": "debug",
+        "z": "8ee38fc4c4808acf",
+        "name": " NOAA Hourly Forecast",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1640,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "a2a2b747dfd2e987",
+        "type": "http request",
+        "z": "8ee38fc4c4808acf",
+        "name": "",
+        "method": "use",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 1290,
+        "y": 280,
+        "wires": [
+            [
+                "eea1846c17b5e4c5"
+            ]
+        ]
+    },
+    {
+        "id": "eea1846c17b5e4c5",
+        "type": "json",
+        "z": "8ee38fc4c4808acf",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1450,
+        "y": 280,
+        "wires": [
+            [
+                "5cec6c538864112d"
+            ]
+        ]
+    },
+    {
+        "id": "813bebbca01f2af9",
+        "type": "debug",
+        "z": "8ee38fc4c4808acf",
+        "name": "NOAA Lat/Long Debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1150,
+        "y": 480,
         "wires": []
     },
     {
