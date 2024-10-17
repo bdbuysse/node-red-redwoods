@@ -15,6 +15,14 @@
         "info": ""
     },
     {
+        "id": "baf4429beef64559",
+        "type": "tab",
+        "label": "Z-Wave",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "aa130715069a6eeb",
         "type": "tab",
         "label": "Influxdb",
@@ -631,6 +639,7 @@
         "protocolVersion": "4",
         "keepalive": "60",
         "cleansession": true,
+        "autoUnsubscribe": true,
         "birthTopic": "",
         "birthQos": "0",
         "birthPayload": "",
@@ -3181,7 +3190,7 @@
         "type": "debug",
         "z": "abf038f.43da5c8",
         "name": "events_all",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -4040,6 +4049,246 @@
         "statusType": "auto",
         "x": 550,
         "y": 160,
+        "wires": []
+    },
+    {
+        "id": "b32652e0a0d1340a",
+        "type": "mqtt in",
+        "z": "baf4429beef64559",
+        "name": "",
+        "topic": "zwave/#",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "3b0217bc.de55b8",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 200,
+        "y": 180,
+        "wires": [
+            [
+                "2dc71c99fac9c3a6",
+                "466411f1efff70b4",
+                "2af908cd32b804d1"
+            ]
+        ]
+    },
+    {
+        "id": "2dc71c99fac9c3a6",
+        "type": "debug",
+        "z": "baf4429beef64559",
+        "name": "Z-Wave Out",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 390,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "466411f1efff70b4",
+        "type": "switch",
+        "z": "baf4429beef64559",
+        "name": "node_id",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 360,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2af908cd32b804d1",
+        "type": "switch",
+        "z": "baf4429beef64559",
+        "name": "topic",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "greatRoom",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "bdb_office",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "disco_ball",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "masteBedRoom",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 5,
+        "x": 370,
+        "y": 180,
+        "wires": [
+            [
+                "2a07b95e4ff6de7d"
+            ],
+            [
+                "2f7e8bb17c740ed2"
+            ],
+            [],
+            [],
+            [
+                "2d02f85299e20d6c"
+            ]
+        ]
+    },
+    {
+        "id": "2a07b95e4ff6de7d",
+        "type": "debug",
+        "z": "baf4429beef64559",
+        "name": "Great Room",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "30a6c984ca15cee0",
+        "type": "inject",
+        "z": "baf4429beef64559",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"id\":\"23-50-0-value-66817\",\"nodeId\":23,\"toUpdate\":false,\"commandClass\":50,\"commandClassName\":\"Meter\",\"endpoint\":0,\"property\":\"value\",\"propertyName\":\"value\",\"propertyKey\":66817,\"propertyKeyName\":\"Electric_A_Consumed\",\"type\":\"number\",\"readable\":true,\"writeable\":false,\"label\":\"Electric Consumption [A]\",\"ccSpecific\":{\"meterType\":1,\"scale\":5,\"rateType\":1},\"stateless\":false,\"commandClassVersion\":5,\"unit\":\"A\",\"list\":false,\"value\":0.17,\"lastUpdate\":1729039201024,\"nodeName\":\"bdb_office_lamp\",\"nodeLocation\":\"bdb_office\"}",
+        "payloadType": "json",
+        "x": 150,
+        "y": 700,
+        "wires": [
+            [
+                "676e2db77004eb7d"
+            ]
+        ]
+    },
+    {
+        "id": "2f7e8bb17c740ed2",
+        "type": "debug",
+        "z": "baf4429beef64559",
+        "name": "BDB Office",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "4a28e6e4393e0bb3",
+        "type": "inject",
+        "z": "baf4429beef64559",
+        "name": "multisensor battery",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"id\":\"19-48-0-Any\",\"nodeId\":19,\"toUpdate\":false,\"commandClass\":48,\"commandClassName\":\"Binary Sensor\",\"endpoint\":0,\"property\":\"Any\",\"propertyName\":\"Any\",\"type\":\"boolean\",\"readable\":true,\"writeable\":false,\"label\":\"Any\",\"ccSpecific\":{\"sensorType\":255},\"stateless\":false,\"commandClassVersion\":1,\"list\":false,\"value\":false,\"lastUpdate\":1729039454518,\"nodeName\":\"multisensor\",\"nodeLocation\":\"greatRoom\"}",
+        "payloadType": "json",
+        "x": 170,
+        "y": 760,
+        "wires": [
+            [
+                "676e2db77004eb7d"
+            ]
+        ]
+    },
+    {
+        "id": "676e2db77004eb7d",
+        "type": "debug",
+        "z": "baf4429beef64559",
+        "name": "Z-Wave Out",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 350,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "2d02f85299e20d6c",
+        "type": "debug",
+        "z": "baf4429beef64559",
+        "name": "Z-Wave Out",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 260,
         "wires": []
     },
     {
