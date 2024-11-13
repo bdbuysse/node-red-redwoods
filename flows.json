@@ -100,7 +100,7 @@
         "id": "978ca627078b4010",
         "type": "tab",
         "label": "Unifi",
-        "disabled": false,
+        "disabled": true,
         "info": "",
         "env": []
     },
@@ -895,6 +895,36 @@
         "passwordFieldType": "env"
     },
     {
+        "id": "38ac84090cedad42",
+        "type": "unificonfig",
+        "name": "spicey",
+        "ip": "10.10.10.1",
+        "port": "443",
+        "site": "default",
+        "unifios": true,
+        "ssl": false
+    },
+    {
+        "id": "14e046a81db22f34",
+        "type": "unificonfig",
+        "name": "spicey",
+        "ip": "$(UNIFIHOST)",
+        "port": "443",
+        "site": "default",
+        "unifios": true,
+        "ssl": false
+    },
+    {
+        "id": "42b161f954aebdaf",
+        "type": "unificonfig",
+        "name": "spicey",
+        "ip": "10.10.10.1",
+        "port": "443",
+        "site": "default",
+        "unifios": true,
+        "ssl": false
+    },
+    {
         "id": "8777becfbd016b0a",
         "type": "change",
         "z": "2b79d1365169f919",
@@ -1196,7 +1226,8 @@
         "wires": [
             [
                 "b53af92376739f8a",
-                "67e5e4b131aca562"
+                "67e5e4b131aca562",
+                "edc84a75edc4d17c"
             ]
         ]
     },
@@ -1714,8 +1745,6 @@
         "z": "e851f138fbd198fe",
         "name": "mboxTTN",
         "links": [
-            "56a1fccf.ecb884",
-            "d43cfd50.963c4",
             "bc0b9d76a37293e9",
             "b4053cec5e062f09"
         ],
@@ -3109,6 +3138,53 @@
         "wires": []
     },
     {
+        "id": "edc84a75edc4d17c",
+        "type": "switch",
+        "z": "e851f138fbd198fe",
+        "name": "",
+        "property": "measurement",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "soil_temperature",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 850,
+        "y": 1820,
+        "wires": [
+            [
+                "402eb00f2123d803"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "402eb00f2123d803",
+        "type": "function",
+        "z": "e851f138fbd198fe",
+        "name": "soil_temperature",
+        "func": "// Transform SenseCap Soil Temperature Payload into other payloads\n\nvar mesaurement = msg.measurement;\nvar node_id = 1000;\nvar command_class = 49;\nvar property = msg.payload[0].n;\nvar value = msg.payload[0].v;\nvar unit = 'F';\n\nmsg.soil_temperature = {\n    \n}\n\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1030,
+        "y": 1780,
+        "wires": [
+            []
+        ]
+    },
+    {
         "id": "4081a840.16fb98",
         "type": "server-events",
         "z": "abf038f.43da5c8",
@@ -3401,7 +3477,7 @@
         "z": "abf038f.43da5c8",
         "name": "Front Porch",
         "server": "5010ad6c.df5ca4",
-        "version": 6,
+        "version": 7,
         "debugenabled": false,
         "action": "switch.{{payload}}",
         "floorId": [],
@@ -3417,6 +3493,7 @@
         "mustacheAltTags": false,
         "outputProperties": [],
         "queue": "none",
+        "blockInputOverrides": false,
         "domain": "switch",
         "service": "{{payload}}",
         "x": 1350,
@@ -4139,7 +4216,12 @@
             },
             {
                 "t": "cont",
-                "v": "masteBedRoom",
+                "v": "masterBedRoom",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "multiSensor",
                 "vt": "str"
             },
             {
@@ -4148,7 +4230,7 @@
         ],
         "checkall": "true",
         "repair": false,
-        "outputs": 5,
+        "outputs": 6,
         "x": 370,
         "y": 180,
         "wires": [
@@ -4160,6 +4242,9 @@
             ],
             [],
             [],
+            [
+                "2bc444050b913fba"
+            ],
             [
                 "2d02f85299e20d6c"
             ]
@@ -4288,7 +4373,177 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 550,
-        "y": 260,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "2bc444050b913fba",
+        "type": "debug",
+        "z": "baf4429beef64559",
+        "name": "Z-Wave MultiSensor",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "3c542be820bf546d",
+        "type": "inject",
+        "z": "baf4429beef64559",
+        "name": "Illuminance",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"id\":\"10-49-0-Illuminance\",\"nodeId\":10,\"toUpdate\":false,\"commandClass\":49,\"commandClassName\":\"Multilevel Sensor\",\"endpoint\":0,\"property\":\"Illuminance\",\"propertyName\":\"Illuminance\",\"type\":\"number\",\"readable\":true,\"writeable\":false,\"label\":\"Illuminance\",\"ccSpecific\":{\"sensorType\":3,\"scale\":1},\"stateless\":false,\"commandClassVersion\":5,\"unit\":\"Lux\",\"list\":false,\"value\":0,\"lastUpdate\":1729133481661,\"nodeName\":\"multiSensor\",\"nodeLocation\":\"mechanicalRoom\"}",
+        "payloadType": "json",
+        "x": 690,
+        "y": 700,
+        "wires": [
+            [
+                "d6f876ce87296fed"
+            ]
+        ]
+    },
+    {
+        "id": "c715c4ece951ad36",
+        "type": "inject",
+        "z": "baf4429beef64559",
+        "name": "Humidity",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"id\":\"10-49-0-Humidity\",\"nodeId\":10,\"toUpdate\":false,\"commandClass\":49,\"commandClassName\":\"Multilevel Sensor\",\"endpoint\":0,\"property\":\"Humidity\",\"propertyName\":\"Humidity\",\"type\":\"number\",\"readable\":true,\"writeable\":false,\"label\":\"Humidity\",\"ccSpecific\":{\"sensorType\":5,\"scale\":0},\"stateless\":false,\"commandClassVersion\":5,\"unit\":\"%\",\"list\":false,\"value\":32,\"lastUpdate\":1729133480823,\"nodeName\":\"multiSensor\",\"nodeLocation\":\"mechanicalRoom\"}",
+        "payloadType": "json",
+        "x": 740,
+        "y": 580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "104a6d753504aa9b",
+        "type": "inject",
+        "z": "baf4429beef64559",
+        "name": "Temperature",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"id\":\"10-49-0-Air temperature\",\"nodeId\":10,\"toUpdate\":false,\"commandClass\":49,\"commandClassName\":\"Multilevel Sensor\",\"endpoint\":0,\"property\":\"Air temperature\",\"propertyName\":\"Air temperature\",\"type\":\"number\",\"readable\":true,\"writeable\":false,\"label\":\"Air temperature\",\"ccSpecific\":{\"sensorType\":1,\"scale\":1},\"stateless\":false,\"commandClassVersion\":5,\"unit\":\"°F\",\"list\":false,\"value\":75.3,\"lastUpdate\":1729133480690,\"nodeName\":\"multiSensor\",\"nodeLocation\":\"mechanicalRoom\"}",
+        "payloadType": "json",
+        "x": 750,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6aeb26be85f7c6c3",
+        "type": "inject",
+        "z": "baf4429beef64559",
+        "name": "Mechanical Room Battery",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"topic\":\"zwave/mechanicalRoom/multiSensor/128/0/isLow\",\"payload\":{\"id\":\"10-128-0-isLow\",\"nodeId\":10,\"toUpdate\":false,\"commandClass\":128,\"commandClassName\":\"Battery\",\"endpoint\":0,\"property\":\"isLow\",\"propertyName\":\"isLow\",\"type\":\"boolean\",\"readable\":true,\"writeable\":false,\"label\":\"Low battery level\",\"stateless\":false,\"commandClassVersion\":1,\"list\":false,\"value\":false,\"lastUpdate\":1730497501111,\"nodeName\":\"multiSensor\",\"nodeLocation\":\"mechanicalRoom\"},\"qos\":1,\"retain\":false,\"_msgid\":\"cf9cd8512741f448\"}",
+        "payloadType": "json",
+        "x": 970,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0f9b3042845241ef",
+        "type": "inject",
+        "z": "baf4429beef64559",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 960,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d6f876ce87296fed",
+        "type": "debug",
+        "z": "baf4429beef64559",
+        "name": "debug 1127",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 870,
+        "y": 700,
         "wires": []
     },
     {
@@ -4406,9 +4661,7 @@
         "type": "link in",
         "z": "aa130715069a6eeb",
         "name": "",
-        "links": [
-            "96283cb6.f2955"
-        ],
+        "links": [],
         "x": 155,
         "y": 1320,
         "wires": [
@@ -5694,9 +5947,7 @@
         "type": "link in",
         "z": "aa130715069a6eeb",
         "name": "link in 1",
-        "links": [
-            "73142c798f789b44"
-        ],
+        "links": [],
         "x": 135,
         "y": 500,
         "wires": [
@@ -5710,9 +5961,7 @@
         "type": "link in",
         "z": "aa130715069a6eeb",
         "name": "link in 2",
-        "links": [
-            "73142c798f789b44"
-        ],
+        "links": [],
         "x": 575,
         "y": 500,
         "wires": [
@@ -6488,9 +6737,7 @@
         "type": "link in",
         "z": "1600a05a.fc816",
         "name": "grafanaAlertIn",
-        "links": [
-            "9838d745.f0ade8"
-        ],
+        "links": [],
         "x": 155,
         "y": 220,
         "wires": [
@@ -8053,9 +8300,7 @@
         "type": "link out",
         "z": "171b21f.9e6efde",
         "name": "irrigationRestrictions",
-        "links": [
-            "877267c2.c87fe8"
-        ],
+        "links": [],
         "x": 1075,
         "y": 860,
         "wires": []
@@ -8550,9 +8795,7 @@
         "type": "link in",
         "z": "bf8b5ca4b28f6892",
         "name": "batteryVoltage",
-        "links": [
-            "eb0a71ce.4cc96"
-        ],
+        "links": [],
         "x": 155,
         "y": 360,
         "wires": [
@@ -8596,9 +8839,7 @@
         "type": "link in",
         "z": "bf8b5ca4b28f6892",
         "name": "suppervisoryIn",
-        "links": [
-            "4ad77589.30ff7c"
-        ],
+        "links": [],
         "x": 195,
         "y": 900,
         "wires": [
@@ -10103,6 +10344,38 @@
         "wires": [
             [
                 "e5246685c8f52273"
+            ]
+        ]
+    },
+    {
+        "id": "a5ce87e2a4096e69",
+        "type": "debug",
+        "z": "978ca627078b4010",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 350,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "5d9310309eba09a5",
+        "type": "UnifiWS",
+        "z": "978ca627078b4010",
+        "d": true,
+        "name": "",
+        "server": "42b161f954aebdaf",
+        "x": 150,
+        "y": 1180,
+        "wires": [
+            [
+                "a5ce87e2a4096e69"
             ]
         ]
     },
