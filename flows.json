@@ -895,6 +895,47 @@
         "passwordFieldType": "env"
     },
     {
+        "id": "38ac84090cedad42",
+        "type": "unificonfig",
+        "name": "spicey",
+        "ip": "$(UNIFIHOST)",
+        "port": "443",
+        "site": "default",
+        "unifios": true,
+        "ssl": false
+    },
+    {
+        "id": "14e046a81db22f34",
+        "type": "unificonfig",
+        "name": "spicey",
+        "ip": "$(UNIFIHOST)",
+        "port": "443",
+        "site": "default",
+        "unifios": true,
+        "ssl": false
+    },
+    {
+        "id": "42b161f954aebdaf",
+        "type": "unificonfig",
+        "name": "spicey",
+        "ip": "10.10.10.1",
+        "port": "443",
+        "site": "default",
+        "unifios": true,
+        "ssl": false
+    },
+    {
+        "id": "63f728088a9b7208",
+        "type": "unifi-access-controller",
+        "name": "spicey",
+        "controllerIp": "$(UNIFIHOST)",
+        "controllerPort": "",
+        "wsPort": "",
+        "controllerType": "UniFiOSConsole",
+        "protectSocketReconnectTimeout": "",
+        "protectSocketHeartbeatInterval": ""
+    },
+    {
         "id": "8777becfbd016b0a",
         "type": "change",
         "z": "2b79d1365169f919",
@@ -1196,7 +1237,8 @@
         "wires": [
             [
                 "b53af92376739f8a",
-                "67e5e4b131aca562"
+                "67e5e4b131aca562",
+                "edc84a75edc4d17c"
             ]
         ]
     },
@@ -1714,8 +1756,6 @@
         "z": "e851f138fbd198fe",
         "name": "mboxTTN",
         "links": [
-            "56a1fccf.ecb884",
-            "d43cfd50.963c4",
             "bc0b9d76a37293e9",
             "b4053cec5e062f09"
         ],
@@ -1918,7 +1958,8 @@
             ],
             [
                 "6e40d9f14980d493",
-                "121b57f67a65f74f"
+                "121b57f67a65f74f",
+                "0e199dd5e870a675"
             ],
             [
                 "6e40d9f14980d493",
@@ -3109,6 +3150,66 @@
         "wires": []
     },
     {
+        "id": "edc84a75edc4d17c",
+        "type": "switch",
+        "z": "e851f138fbd198fe",
+        "name": "",
+        "property": "measurement",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "soil_temperature",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 850,
+        "y": 1820,
+        "wires": [
+            [
+                "402eb00f2123d803"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "402eb00f2123d803",
+        "type": "function",
+        "z": "e851f138fbd198fe",
+        "name": "soil_temperature",
+        "func": "// Transform SenseCap Soil Temperature Payload into other payloads\n\nvar mesaurement = msg.measurement;\nvar node_id = 1000;\nvar command_class = 49;\nvar property = msg.payload[0].n;\nvar value = msg.payload[0].v;\nvar unit = 'F';\n\nmsg.soil_temperature = {\n    \n}\n\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1030,
+        "y": 1780,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0e199dd5e870a675",
+        "type": "link out",
+        "z": "e851f138fbd198fe",
+        "name": "draginoSoilTemperature",
+        "mode": "link",
+        "links": [
+            "5f6ae425d94b21e6"
+        ],
+        "x": 905,
+        "y": 1240,
+        "wires": []
+    },
+    {
         "id": "4081a840.16fb98",
         "type": "server-events",
         "z": "abf038f.43da5c8",
@@ -3401,7 +3502,7 @@
         "z": "abf038f.43da5c8",
         "name": "Front Porch",
         "server": "5010ad6c.df5ca4",
-        "version": 6,
+        "version": 7,
         "debugenabled": false,
         "action": "switch.{{payload}}",
         "floorId": [],
@@ -3417,6 +3518,7 @@
         "mustacheAltTags": false,
         "outputProperties": [],
         "queue": "none",
+        "blockInputOverrides": false,
         "domain": "switch",
         "service": "{{payload}}",
         "x": 1350,
@@ -4139,7 +4241,12 @@
             },
             {
                 "t": "cont",
-                "v": "masteBedRoom",
+                "v": "masterBedRoom",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "multiSensor",
                 "vt": "str"
             },
             {
@@ -4148,7 +4255,7 @@
         ],
         "checkall": "true",
         "repair": false,
-        "outputs": 5,
+        "outputs": 6,
         "x": 370,
         "y": 180,
         "wires": [
@@ -4160,6 +4267,9 @@
             ],
             [],
             [],
+            [
+                "2bc444050b913fba"
+            ],
             [
                 "2d02f85299e20d6c"
             ]
@@ -4288,7 +4398,267 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 550,
-        "y": 260,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "2bc444050b913fba",
+        "type": "debug",
+        "z": "baf4429beef64559",
+        "name": "Z-Wave MultiSensor",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "3c542be820bf546d",
+        "type": "inject",
+        "z": "baf4429beef64559",
+        "name": "Illuminance",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"id\":\"10-49-0-Illuminance\",\"nodeId\":10,\"toUpdate\":false,\"commandClass\":49,\"commandClassName\":\"Multilevel Sensor\",\"endpoint\":0,\"property\":\"Illuminance\",\"propertyName\":\"Illuminance\",\"type\":\"number\",\"readable\":true,\"writeable\":false,\"label\":\"Illuminance\",\"ccSpecific\":{\"sensorType\":3,\"scale\":1},\"stateless\":false,\"commandClassVersion\":5,\"unit\":\"Lux\",\"list\":false,\"value\":0,\"lastUpdate\":1729133481661,\"nodeName\":\"multiSensor\",\"nodeLocation\":\"mechanicalRoom\"}",
+        "payloadType": "json",
+        "x": 690,
+        "y": 700,
+        "wires": [
+            [
+                "d6f876ce87296fed"
+            ]
+        ]
+    },
+    {
+        "id": "c715c4ece951ad36",
+        "type": "inject",
+        "z": "baf4429beef64559",
+        "name": "Humidity",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"id\":\"10-49-0-Humidity\",\"nodeId\":10,\"toUpdate\":false,\"commandClass\":49,\"commandClassName\":\"Multilevel Sensor\",\"endpoint\":0,\"property\":\"Humidity\",\"propertyName\":\"Humidity\",\"type\":\"number\",\"readable\":true,\"writeable\":false,\"label\":\"Humidity\",\"ccSpecific\":{\"sensorType\":5,\"scale\":0},\"stateless\":false,\"commandClassVersion\":5,\"unit\":\"%\",\"list\":false,\"value\":32,\"lastUpdate\":1729133480823,\"nodeName\":\"multiSensor\",\"nodeLocation\":\"mechanicalRoom\"}",
+        "payloadType": "json",
+        "x": 740,
+        "y": 580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "104a6d753504aa9b",
+        "type": "inject",
+        "z": "baf4429beef64559",
+        "name": "Temperature",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"id\":\"10-49-0-Air temperature\",\"nodeId\":10,\"toUpdate\":false,\"commandClass\":49,\"commandClassName\":\"Multilevel Sensor\",\"endpoint\":0,\"property\":\"Air temperature\",\"propertyName\":\"Air temperature\",\"type\":\"number\",\"readable\":true,\"writeable\":false,\"label\":\"Air temperature\",\"ccSpecific\":{\"sensorType\":1,\"scale\":1},\"stateless\":false,\"commandClassVersion\":5,\"unit\":\"°F\",\"list\":false,\"value\":75.3,\"lastUpdate\":1729133480690,\"nodeName\":\"multiSensor\",\"nodeLocation\":\"mechanicalRoom\"}",
+        "payloadType": "json",
+        "x": 750,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6aeb26be85f7c6c3",
+        "type": "inject",
+        "z": "baf4429beef64559",
+        "name": "Mechanical Room Battery",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"topic\":\"zwave/mechanicalRoom/multiSensor/128/0/isLow\",\"payload\":{\"id\":\"10-128-0-isLow\",\"nodeId\":10,\"toUpdate\":false,\"commandClass\":128,\"commandClassName\":\"Battery\",\"endpoint\":0,\"property\":\"isLow\",\"propertyName\":\"isLow\",\"type\":\"boolean\",\"readable\":true,\"writeable\":false,\"label\":\"Low battery level\",\"stateless\":false,\"commandClassVersion\":1,\"list\":false,\"value\":false,\"lastUpdate\":1730497501111,\"nodeName\":\"multiSensor\",\"nodeLocation\":\"mechanicalRoom\"},\"qos\":1,\"retain\":false,\"_msgid\":\"cf9cd8512741f448\"}",
+        "payloadType": "json",
+        "x": 970,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0f9b3042845241ef",
+        "type": "inject",
+        "z": "baf4429beef64559",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 960,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d6f876ce87296fed",
+        "type": "debug",
+        "z": "baf4429beef64559",
+        "name": "debug 1127",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 870,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "5f6ae425d94b21e6",
+        "type": "link in",
+        "z": "baf4429beef64559",
+        "name": "draginoSoilTemperature",
+        "links": [
+            "0e199dd5e870a675"
+        ],
+        "x": 185,
+        "y": 1380,
+        "wires": [
+            [
+                "9ce20361d0b0e771",
+                "c13934f75e805fe4"
+            ]
+        ]
+    },
+    {
+        "id": "9ce20361d0b0e771",
+        "type": "function",
+        "z": "baf4429beef64559",
+        "name": "soil_temperature",
+        "func": "let value = msg.payload[0].v;\nlet unit = msg.payload[0].u;\nlet property = msg.payload[0].n;\nlet dev_eui = msg.payload[0].dev_eui;\n\nvar zwavePayloadMsg = {\n    node_id: 5001,  // Assign a unique Z-Wave node ID\n    command_class: 49,  // Multilevel Sensor command class\n    property: property,\n    value: value,\n    unit: unit,\n    timestamp: Date.now()  // Current timestamp in milliseconds\n};\n\nreturn zwavePayloadMsg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 1380,
+        "wires": [
+            [
+                "0746d318db30baf9",
+                "abeeb3e812e247d5"
+            ]
+        ]
+    },
+    {
+        "id": "c13934f75e805fe4",
+        "type": "debug",
+        "z": "baf4429beef64559",
+        "name": "soil_temperature",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 350,
+        "y": 1300,
+        "wires": []
+    },
+    {
+        "id": "0746d318db30baf9",
+        "type": "mqtt out",
+        "z": "baf4429beef64559",
+        "name": "",
+        "topic": "zwave/greenHouse/dragino_soil_temperature_1",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "3b0217bc.de55b8",
+        "x": 720,
+        "y": 1380,
+        "wires": []
+    },
+    {
+        "id": "abeeb3e812e247d5",
+        "type": "debug",
+        "z": "baf4429beef64559",
+        "name": "soil_temperature_zwave",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 610,
+        "y": 1460,
         "wires": []
     },
     {
@@ -4406,9 +4776,7 @@
         "type": "link in",
         "z": "aa130715069a6eeb",
         "name": "",
-        "links": [
-            "96283cb6.f2955"
-        ],
+        "links": [],
         "x": 155,
         "y": 1320,
         "wires": [
@@ -5694,9 +6062,7 @@
         "type": "link in",
         "z": "aa130715069a6eeb",
         "name": "link in 1",
-        "links": [
-            "73142c798f789b44"
-        ],
+        "links": [],
         "x": 135,
         "y": 500,
         "wires": [
@@ -5710,9 +6076,7 @@
         "type": "link in",
         "z": "aa130715069a6eeb",
         "name": "link in 2",
-        "links": [
-            "73142c798f789b44"
-        ],
+        "links": [],
         "x": 575,
         "y": 500,
         "wires": [
@@ -6488,9 +6852,7 @@
         "type": "link in",
         "z": "1600a05a.fc816",
         "name": "grafanaAlertIn",
-        "links": [
-            "9838d745.f0ade8"
-        ],
+        "links": [],
         "x": 155,
         "y": 220,
         "wires": [
@@ -8053,9 +8415,7 @@
         "type": "link out",
         "z": "171b21f.9e6efde",
         "name": "irrigationRestrictions",
-        "links": [
-            "877267c2.c87fe8"
-        ],
+        "links": [],
         "x": 1075,
         "y": 860,
         "wires": []
@@ -8550,9 +8910,7 @@
         "type": "link in",
         "z": "bf8b5ca4b28f6892",
         "name": "batteryVoltage",
-        "links": [
-            "eb0a71ce.4cc96"
-        ],
+        "links": [],
         "x": 155,
         "y": 360,
         "wires": [
@@ -8596,9 +8954,7 @@
         "type": "link in",
         "z": "bf8b5ca4b28f6892",
         "name": "suppervisoryIn",
-        "links": [
-            "4ad77589.30ff7c"
-        ],
+        "links": [],
         "x": 195,
         "y": 900,
         "wires": [
@@ -9665,7 +10021,7 @@
         "type": "function",
         "z": "978ca627078b4010",
         "name": "Login",
-        "func": "let user = env.get(\"UNIFIUSER\");\nlet password = env.get(\"UNIFIPASS\");\n\n\nmsg.url = \"http://10.10.10.1/api/auth/login?remember=true\";\nmsg.method = \"POST\";\nmsg.headers = { \"Content-Type\":\"application/json;charset=UTF-8\"};\nmsg.payload = {\n    username: user,\n    password: password,\n//    remember: true\n};\n \nreturn msg;",
+        "func": "let user = env.get(\"UNIFIUSER\");\nlet password = env.get(\"UNIFIPASS\");\n\n//msg.url = \"http://10.10.10.1/api/auth/login?remember=true\";\n//msg.url = \"http://10.10.10.1/proxy/network/api/s/default/login?remember=true\";\nmsg.url = \"http://10.10.10.1/proxy/network/api/auth/login\";\n\nmsg.method = \"POST\";\nmsg.headers = { \"Content-Type\":\"application/json;charset=UTF-8\"};\nmsg.payload = {\n    username: user,\n    password: password,\n//    remember: true\n};\n \nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -9676,6 +10032,7 @@
         "y": 260,
         "wires": [
             [
+                "f734213f36240f53",
                 "deaaa7a93b03fcac"
             ]
         ]
@@ -9687,9 +10044,9 @@
         "name": "",
         "props": [
             {
-                "p": "username",
-                "v": "bdb",
-                "vt": "str"
+                "p": "timestamp",
+                "v": "",
+                "vt": "date"
             }
         ],
         "repeat": "",
@@ -10103,6 +10460,179 @@
         "wires": [
             [
                 "e5246685c8f52273"
+            ]
+        ]
+    },
+    {
+        "id": "a5ce87e2a4096e69",
+        "type": "debug",
+        "z": "978ca627078b4010",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 730,
+        "y": 1280,
+        "wires": []
+    },
+    {
+        "id": "5d9310309eba09a5",
+        "type": "UnifiWS",
+        "z": "978ca627078b4010",
+        "d": true,
+        "name": "",
+        "server": "42b161f954aebdaf",
+        "x": 150,
+        "y": 1180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f734213f36240f53",
+        "type": "debug",
+        "z": "978ca627078b4010",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 490,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "4ef6ca2ee76aa499",
+        "type": "Unifi",
+        "z": "978ca627078b4010",
+        "name": "",
+        "server": "38ac84090cedad42",
+        "command": "20",
+        "debug": false,
+        "x": 1640,
+        "y": 600,
+        "wires": [
+            [
+                "7e1546b5116663e8"
+            ],
+            [
+                "7de79d021c5ea87c"
+            ]
+        ]
+    },
+    {
+        "id": "7e1546b5116663e8",
+        "type": "debug",
+        "z": "978ca627078b4010",
+        "name": "debug 1131",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1850,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "7de79d021c5ea87c",
+        "type": "debug",
+        "z": "978ca627078b4010",
+        "name": "debug 1132",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1850,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "67a96149a17aedce",
+        "type": "inject",
+        "z": "978ca627078b4010",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1440,
+        "y": 600,
+        "wires": [
+            [
+                "4ef6ca2ee76aa499"
+            ]
+        ]
+    },
+    {
+        "id": "72a85734b69222c6",
+        "type": "unifi-request",
+        "z": "978ca627078b4010",
+        "name": "",
+        "accessControllerNodeId": "63f728088a9b7208",
+        "endpoint": "/proxy/network/api/s/default/stat/health",
+        "method": "GET",
+        "data": "{}",
+        "dataType": "json",
+        "responseType": "json",
+        "x": 530,
+        "y": 1280,
+        "wires": [
+            [
+                "a5ce87e2a4096e69"
+            ]
+        ]
+    },
+    {
+        "id": "e7ec0e7d429930d6",
+        "type": "inject",
+        "z": "978ca627078b4010",
+        "name": "",
+        "props": [
+            {
+                "p": "username",
+                "v": "bdb",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 310,
+        "y": 1280,
+        "wires": [
+            [
+                "72a85734b69222c6"
             ]
         ]
     },
