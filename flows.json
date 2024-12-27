@@ -100,7 +100,7 @@
         "id": "978ca627078b4010",
         "type": "tab",
         "label": "Unifi",
-        "disabled": true,
+        "disabled": false,
         "info": "",
         "env": []
     },
@@ -898,7 +898,7 @@
         "id": "38ac84090cedad42",
         "type": "unificonfig",
         "name": "spicey",
-        "ip": "10.10.10.1",
+        "ip": "$(UNIFIHOST)",
         "port": "443",
         "site": "default",
         "unifios": true,
@@ -923,6 +923,17 @@
         "site": "default",
         "unifios": true,
         "ssl": false
+    },
+    {
+        "id": "63f728088a9b7208",
+        "type": "unifi-access-controller",
+        "name": "spicey",
+        "controllerIp": "$(UNIFIHOST)",
+        "controllerPort": "",
+        "wsPort": "",
+        "controllerType": "UniFiOSConsole",
+        "protectSocketReconnectTimeout": "",
+        "protectSocketHeartbeatInterval": ""
     },
     {
         "id": "8777becfbd016b0a",
@@ -1947,7 +1958,8 @@
             ],
             [
                 "6e40d9f14980d493",
-                "121b57f67a65f74f"
+                "121b57f67a65f74f",
+                "0e199dd5e870a675"
             ],
             [
                 "6e40d9f14980d493",
@@ -3183,6 +3195,19 @@
         "wires": [
             []
         ]
+    },
+    {
+        "id": "0e199dd5e870a675",
+        "type": "link out",
+        "z": "e851f138fbd198fe",
+        "name": "draginoSoilTemperature",
+        "mode": "link",
+        "links": [
+            "5f6ae425d94b21e6"
+        ],
+        "x": 905,
+        "y": 1240,
+        "wires": []
     },
     {
         "id": "4081a840.16fb98",
@@ -4544,6 +4569,96 @@
         "statusType": "auto",
         "x": 870,
         "y": 700,
+        "wires": []
+    },
+    {
+        "id": "5f6ae425d94b21e6",
+        "type": "link in",
+        "z": "baf4429beef64559",
+        "name": "draginoSoilTemperature",
+        "links": [
+            "0e199dd5e870a675"
+        ],
+        "x": 185,
+        "y": 1380,
+        "wires": [
+            [
+                "9ce20361d0b0e771",
+                "c13934f75e805fe4"
+            ]
+        ]
+    },
+    {
+        "id": "9ce20361d0b0e771",
+        "type": "function",
+        "z": "baf4429beef64559",
+        "name": "soil_temperature",
+        "func": "let value = msg.payload[0].v;\nlet unit = msg.payload[0].u;\nlet property = msg.payload[0].n;\nlet dev_eui = msg.payload[0].dev_eui;\n\nvar zwavePayloadMsg = {\n    node_id: 5001,  // Assign a unique Z-Wave node ID\n    command_class: 49,  // Multilevel Sensor command class\n    property: property,\n    value: value,\n    unit: unit,\n    timestamp: Date.now()  // Current timestamp in milliseconds\n};\n\nreturn zwavePayloadMsg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 1380,
+        "wires": [
+            [
+                "0746d318db30baf9",
+                "abeeb3e812e247d5"
+            ]
+        ]
+    },
+    {
+        "id": "c13934f75e805fe4",
+        "type": "debug",
+        "z": "baf4429beef64559",
+        "name": "soil_temperature",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 350,
+        "y": 1300,
+        "wires": []
+    },
+    {
+        "id": "0746d318db30baf9",
+        "type": "mqtt out",
+        "z": "baf4429beef64559",
+        "name": "",
+        "topic": "zwave/greenHouse/dragino_soil_temperature_1",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "3b0217bc.de55b8",
+        "x": 720,
+        "y": 1380,
+        "wires": []
+    },
+    {
+        "id": "abeeb3e812e247d5",
+        "type": "debug",
+        "z": "baf4429beef64559",
+        "name": "soil_temperature_zwave",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 610,
+        "y": 1460,
         "wires": []
     },
     {
@@ -9906,7 +10021,7 @@
         "type": "function",
         "z": "978ca627078b4010",
         "name": "Login",
-        "func": "let user = env.get(\"UNIFIUSER\");\nlet password = env.get(\"UNIFIPASS\");\n\n\nmsg.url = \"http://10.10.10.1/api/auth/login?remember=true\";\nmsg.method = \"POST\";\nmsg.headers = { \"Content-Type\":\"application/json;charset=UTF-8\"};\nmsg.payload = {\n    username: user,\n    password: password,\n//    remember: true\n};\n \nreturn msg;",
+        "func": "let user = env.get(\"UNIFIUSER\");\nlet password = env.get(\"UNIFIPASS\");\n\n//msg.url = \"http://10.10.10.1/api/auth/login?remember=true\";\n//msg.url = \"http://10.10.10.1/proxy/network/api/s/default/login?remember=true\";\nmsg.url = \"http://10.10.10.1/proxy/network/api/auth/login\";\n\nmsg.method = \"POST\";\nmsg.headers = { \"Content-Type\":\"application/json;charset=UTF-8\"};\nmsg.payload = {\n    username: user,\n    password: password,\n//    remember: true\n};\n \nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -9917,6 +10032,7 @@
         "y": 260,
         "wires": [
             [
+                "f734213f36240f53",
                 "deaaa7a93b03fcac"
             ]
         ]
@@ -9928,9 +10044,9 @@
         "name": "",
         "props": [
             {
-                "p": "username",
-                "v": "bdb",
-                "vt": "str"
+                "p": "timestamp",
+                "v": "",
+                "vt": "date"
             }
         ],
         "repeat": "",
@@ -10360,8 +10476,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 350,
-        "y": 1180,
+        "x": 730,
+        "y": 1280,
         "wires": []
     },
     {
@@ -10374,8 +10490,149 @@
         "x": 150,
         "y": 1180,
         "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f734213f36240f53",
+        "type": "debug",
+        "z": "978ca627078b4010",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 490,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "4ef6ca2ee76aa499",
+        "type": "Unifi",
+        "z": "978ca627078b4010",
+        "name": "",
+        "server": "38ac84090cedad42",
+        "command": "20",
+        "debug": false,
+        "x": 1640,
+        "y": 600,
+        "wires": [
+            [
+                "7e1546b5116663e8"
+            ],
+            [
+                "7de79d021c5ea87c"
+            ]
+        ]
+    },
+    {
+        "id": "7e1546b5116663e8",
+        "type": "debug",
+        "z": "978ca627078b4010",
+        "name": "debug 1131",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1850,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "7de79d021c5ea87c",
+        "type": "debug",
+        "z": "978ca627078b4010",
+        "name": "debug 1132",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1850,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "67a96149a17aedce",
+        "type": "inject",
+        "z": "978ca627078b4010",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1440,
+        "y": 600,
+        "wires": [
+            [
+                "4ef6ca2ee76aa499"
+            ]
+        ]
+    },
+    {
+        "id": "72a85734b69222c6",
+        "type": "unifi-request",
+        "z": "978ca627078b4010",
+        "name": "",
+        "accessControllerNodeId": "63f728088a9b7208",
+        "endpoint": "/proxy/network/api/s/default/stat/health",
+        "method": "GET",
+        "data": "{}",
+        "dataType": "json",
+        "responseType": "json",
+        "x": 530,
+        "y": 1280,
+        "wires": [
             [
                 "a5ce87e2a4096e69"
+            ]
+        ]
+    },
+    {
+        "id": "e7ec0e7d429930d6",
+        "type": "inject",
+        "z": "978ca627078b4010",
+        "name": "",
+        "props": [
+            {
+                "p": "username",
+                "v": "bdb",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 310,
+        "y": 1280,
+        "wires": [
+            [
+                "72a85734b69222c6"
             ]
         ]
     },
