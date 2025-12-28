@@ -74,14 +74,6 @@
         "info": ""
     },
     {
-        "id": "b78ed3d06ab6db61",
-        "type": "tab",
-        "label": "GoogleHome",
-        "disabled": true,
-        "info": "",
-        "env": []
-    },
-    {
         "id": "8ee38fc4c4808acf",
         "type": "tab",
         "label": "Weather",
@@ -108,6 +100,14 @@
         "id": "44c96c079469bdd0",
         "type": "tab",
         "label": "WIP",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "c89518cde58592be",
+        "type": "tab",
+        "label": "Flow 1",
         "disabled": false,
         "info": "",
         "env": []
@@ -411,26 +411,6 @@
         }
     },
     {
-        "id": "3a9c7e55.2fdf72",
-        "type": "ui_group",
-        "name": "GPS Survey",
-        "tab": "aa5557b0.ab79c8",
-        "order": 1,
-        "disp": true,
-        "width": "6",
-        "collapse": false
-    },
-    {
-        "id": "48e3f75d.5d7798",
-        "type": "ui_group",
-        "name": "LoRa Demo",
-        "tab": "aa5557b0.ab79c8",
-        "order": 2,
-        "disp": true,
-        "width": "6",
-        "collapse": false
-    },
-    {
         "id": "aa5557b0.ab79c8",
         "type": "ui_tab",
         "name": "LoRa",
@@ -438,26 +418,6 @@
         "order": 1,
         "disabled": false,
         "hidden": false
-    },
-    {
-        "id": "7f2ebed0.9fcd3",
-        "type": "ui_group",
-        "name": "GPS Survey",
-        "tab": "9cc4d04a.b62aa",
-        "order": 1,
-        "disp": true,
-        "width": "6",
-        "collapse": false
-    },
-    {
-        "id": "87d11ec8.ee325",
-        "type": "ui_group",
-        "name": "LoRa Demo",
-        "tab": "9cc4d04a.b62aa",
-        "order": 2,
-        "disp": true,
-        "width": "6",
-        "collapse": false
     },
     {
         "id": "9cc4d04a.b62aa",
@@ -492,20 +452,6 @@
         "enableGlobalContextStore": true
     },
     {
-        "id": "e81e7427.232dd8",
-        "type": "influxdb",
-        "hostname": "influxdb",
-        "port": "8086",
-        "protocol": "http",
-        "database": "homeassistant",
-        "name": "",
-        "usetls": false,
-        "tls": "d15f51f5.84dab",
-        "influxdbVersion": "1.x",
-        "url": "http://localhost:8086",
-        "rejectUnauthorized": true
-    },
-    {
         "id": "d15f51f5.84dab",
         "type": "tls-config",
         "name": "",
@@ -517,33 +463,6 @@
         "caname": "",
         "servername": "",
         "verifyservercert": false
-    },
-    {
-        "id": "b841d93f.1fc228",
-        "type": "ui_group",
-        "name": "Wind Speed",
-        "tab": "355c6684.d14cea",
-        "order": 7,
-        "disp": true,
-        "width": "6"
-    },
-    {
-        "id": "61d8381c.d631b8",
-        "type": "ui_group",
-        "name": "OAT",
-        "tab": "355c6684.d14cea",
-        "order": 6,
-        "disp": true,
-        "width": "6"
-    },
-    {
-        "id": "1687319f.26f19e",
-        "type": "ui_group",
-        "name": "Storms",
-        "tab": "355c6684.d14cea",
-        "order": 8,
-        "disp": true,
-        "width": "6"
     },
     {
         "id": "355c6684.d14cea",
@@ -608,12 +527,6 @@
         "influxdbVersion": "1.x"
     },
     {
-        "id": "09f2c70562eb4732",
-        "type": "google-home-conf",
-        "d": true,
-        "username": "bdbuysse"
-    },
-    {
         "id": "88e1b19a.74497",
         "type": "tls-config",
         "name": "defaultTLS",
@@ -654,18 +567,6 @@
         "willMsg": {},
         "userProps": "",
         "sessionExpiry": ""
-    },
-    {
-        "id": "d0b6d8cf.354418",
-        "type": "influxdb",
-        "hostname": "influxdb",
-        "port": "8086",
-        "protocol": "http",
-        "database": "fail2ban",
-        "name": "",
-        "usetls": false,
-        "tls": "ef2c57f1.833998",
-        "influxdbVersion": "1.x"
     },
     {
         "id": "ef2c57f1.833998",
@@ -843,20 +744,6 @@
         "className": ""
     },
     {
-        "id": "5d7e54ca.019d44",
-        "type": "influxdb",
-        "hostname": "127.0.0.1",
-        "port": "8086",
-        "protocol": "http",
-        "database": "database",
-        "name": "",
-        "usetls": false,
-        "tls": "d50d0c9f.31e858",
-        "influxdbVersion": "2.0",
-        "url": "https://localhost:9999",
-        "rejectUnauthorized": false
-    },
-    {
         "id": "d50d0c9f.31e858",
         "type": "tls-config",
         "name": "",
@@ -934,6 +821,113 @@
         "controllerType": "UniFiOSConsole",
         "protectSocketReconnectTimeout": "",
         "protectSocketHeartbeatInterval": ""
+    },
+    {
+        "id": "3a9c7e55.2fdf72",
+        "type": "ui_group",
+        "name": "GPS Survey",
+        "tab": "aa5557b0.ab79c8",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "48e3f75d.5d7798",
+        "type": "ui_group",
+        "name": "LoRa Demo",
+        "tab": "aa5557b0.ab79c8",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "7f2ebed0.9fcd3",
+        "type": "ui_group",
+        "name": "GPS Survey",
+        "tab": "9cc4d04a.b62aa",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "87d11ec8.ee325",
+        "type": "ui_group",
+        "name": "LoRa Demo",
+        "tab": "9cc4d04a.b62aa",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "e81e7427.232dd8",
+        "type": "influxdb",
+        "hostname": "influxdb",
+        "port": "8086",
+        "protocol": "http",
+        "database": "homeassistant",
+        "name": "",
+        "usetls": false,
+        "tls": "d15f51f5.84dab",
+        "influxdbVersion": "1.x",
+        "url": "http://localhost:8086",
+        "rejectUnauthorized": true
+    },
+    {
+        "id": "b841d93f.1fc228",
+        "type": "ui_group",
+        "name": "Wind Speed",
+        "tab": "355c6684.d14cea",
+        "order": 7,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "61d8381c.d631b8",
+        "type": "ui_group",
+        "name": "OAT",
+        "tab": "355c6684.d14cea",
+        "order": 6,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "1687319f.26f19e",
+        "type": "ui_group",
+        "name": "Storms",
+        "tab": "355c6684.d14cea",
+        "order": 8,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "d0b6d8cf.354418",
+        "type": "influxdb",
+        "hostname": "influxdb",
+        "port": "8086",
+        "protocol": "http",
+        "database": "fail2ban",
+        "name": "",
+        "usetls": false,
+        "tls": "ef2c57f1.833998",
+        "influxdbVersion": "1.x"
+    },
+    {
+        "id": "5d7e54ca.019d44",
+        "type": "influxdb",
+        "hostname": "127.0.0.1",
+        "port": "8086",
+        "protocol": "http",
+        "database": "database",
+        "name": "",
+        "usetls": false,
+        "tls": "d50d0c9f.31e858",
+        "influxdbVersion": "2.0",
+        "url": "https://localhost:9999",
+        "rejectUnauthorized": false
     },
     {
         "id": "8777becfbd016b0a",
@@ -1250,7 +1244,8 @@
         "mode": "link",
         "links": [
             "d3561ca26614772f",
-            "d0a5f832450dfb4f"
+            "d0a5f832450dfb4f",
+            "5320beeaaaf10ba2"
         ],
         "x": 815,
         "y": 1880,
@@ -2277,7 +2272,7 @@
         "name": "TTNv3 Inbound from GCP",
         "info": "",
         "x": 210,
-        "y": 80,
+        "y": 60,
         "wires": []
     },
     {
@@ -2285,7 +2280,7 @@
         "type": "function",
         "z": "e851f138fbd198fe",
         "name": "Supervisory Event Loop",
-        "func": "let dev_id = msg.ttnv3_payload.end_device_ids.device_id;\nlet dev_eui = msg.ttnv3_payload.end_device_ids.dev_eui;\nlet device_id = msg.payload.end_device_ids.device_id;\nlet app_id = msg.payload.end_device_ids.application_ids.application_id;\nlet decoded_payload = msg.decoded_payload;\nlet event_types = msg.decoded_payload.event_type.description\nlet events = msg.decoded_payload.events;\nconst influxMsg = {};\n\nconst supervisory_msg = {\n    dev_id: dev_id,\n    dev_eui: dev_eui,\n    decoded_payload: decoded_payload,\n    event_types: event_types,\n    events: events\n};\n\nfor (var i = 0; i < events.length; i++) {\n    if (events[i].n != \"raw_data\") {\n        // @ts-ignore\n        influxMsg = [{\n            measurement: events[i].n,\n            payload: [{\n                dev_id: dev_id,\n                dev_eui: dev_eui,\n                n: events[i].n,\n                u: events[i].u,\n                v: events[i].v,\n            }, {\n                app_id: app_id,\n                device_id: dev_id,\n                event_name: events[i].n\n            }],\n        }];\n        node.send(influxMsg);\n    } else { }\n}\nreturn influxMsg;",
+        "func": "let dev_id = msg.ttnv3_payload.end_device_ids.device_id;\nlet dev_eui = msg.ttnv3_payload.end_device_ids.dev_eui;\nlet device_id = msg.payload.end_device_ids.device_id;\nlet app_id = msg.payload.end_device_ids.application_ids.application_id;\nlet decoded_payload = msg.decoded_payload;\nlet event_types = msg.decoded_payload.event_type.description\nlet events = msg.decoded_payload.events;\nlet influxMsg = {};\n\nconst supervisory_msg = {\n    dev_id: dev_id,\n    dev_eui: dev_eui,\n    decoded_payload: decoded_payload,\n    event_types: event_types,\n    events: events\n};\n\nfor (var i = 0; i < events.length; i++) {\n    if (events[i].n != \"raw_data\") {\n        // @ts-ignore\n        influxMsg = [{\n            measurement: events[i].n,\n            payload: [{\n                dev_id: dev_id,\n                dev_eui: dev_eui,\n                n: events[i].n,\n                u: events[i].u,\n                v: events[i].v,\n            }, {\n                app_id: app_id,\n                device_id: dev_id,\n                event_name: events[i].n\n            }],\n        }];\n        node.send(influxMsg);\n    } else { }\n}\nreturn influxMsg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -3253,7 +3248,7 @@
         "id": "4190eae8.4d2674",
         "type": "switch",
         "z": "abf038f.43da5c8",
-        "name": "",
+        "name": "entity_id switch",
         "property": "payload.entity_id",
         "propertyType": "msg",
         "rules": [
@@ -3274,12 +3269,13 @@
         "checkall": "true",
         "repair": false,
         "outputs": 3,
-        "x": 370,
+        "x": 400,
         "y": 160,
         "wires": [
             [],
             [
-                "b9709e8fb2d0a6bb"
+                "b9709e8fb2d0a6bb",
+                "4af8b46e5bd1f805"
             ],
             [
                 "d80df6ac6bc0499b"
@@ -3982,7 +3978,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 530,
+        "x": 590,
         "y": 240,
         "wires": [
             [],
@@ -4003,8 +3999,8 @@
         "correl": "",
         "expiry": "",
         "broker": "3b0217bc.de55b8",
-        "x": 730,
-        "y": 220,
+        "x": 400,
+        "y": 240,
         "wires": []
     },
     {
@@ -4149,9 +4145,68 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 550,
+        "x": 610,
         "y": 160,
         "wires": []
+    },
+    {
+        "id": "5320beeaaaf10ba2",
+        "type": "link in",
+        "z": "abf038f.43da5c8",
+        "name": "senseCapIn",
+        "links": [
+            "b53af92376739f8a"
+        ],
+        "x": 245,
+        "y": 1580,
+        "wires": [
+            [
+                "bad193906d128a4b"
+            ]
+        ]
+    },
+    {
+        "id": "bad193906d128a4b",
+        "type": "debug",
+        "z": "abf038f.43da5c8",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 420,
+        "y": 1580,
+        "wires": []
+    },
+    {
+        "id": "4af8b46e5bd1f805",
+        "type": "change",
+        "z": "abf038f.43da5c8",
+        "name": "sun_state",
+        "rules": [
+            {
+                "t": "set",
+                "p": "sun_state",
+                "pt": "global",
+                "to": "payload.event.new_state.state",
+                "tot": "msg",
+                "dc": true
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 600,
+        "y": 120,
+        "wires": [
+            []
+        ]
     },
     {
         "id": "b32652e0a0d1340a",
@@ -4593,7 +4648,7 @@
         "type": "function",
         "z": "baf4429beef64559",
         "name": "soil_temperature",
-        "func": "let value = msg.payload[0].v;\nlet unit = msg.payload[0].u;\nlet property = msg.payload[0].n;\nlet dev_eui = msg.payload[0].dev_eui;\n\nvar zwavePayloadMsg = {\n    node_id: 5001,  // Assign a unique Z-Wave node ID\n    command_class: 49,  // Multilevel Sensor command class\n    property: property,\n    value: value,\n    unit: unit,\n    timestamp: Date.now()  // Current timestamp in milliseconds\n};\n\nreturn zwavePayloadMsg;",
+        "func": "let value = msg.payload[0].v;\nlet unit = msg.payload[0].u;\nlet property = msg.payload[0].n;\nlet dev_eui = msg.payload[0].dev_eui;\n\nvar zwavePayloadMsg = {payload: {\n    nodeId: 5001,  // Assign a unique Z-Wave node ID\n    commandClass: 49,  // Multilevel Sensor command class\n    commandClassName: 'Multilevel Sensor',\n    property: property,\n    value: value,\n    type: 'number',\n    label: 'Soil_Temperature',\n    unit: unit,\n    timestamp: Date.now()  // Current timestamp in milliseconds\n}};\n\nreturn zwavePayloadMsg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -4660,6 +4715,54 @@
         "x": 610,
         "y": 1460,
         "wires": []
+    },
+    {
+        "id": "71741b9f41e549d2",
+        "type": "inject",
+        "z": "baf4429beef64559",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "test",
+                "v": "{\"node_id\":5001,\"command_class\":49,\"property\":\"soil_temperature\",\"value\":77,\"unit\":\"Fah\",\"timestamp\":1759011899944,\"_msgid\":\"3ac3c79dbd448fa1\"}",
+                "vt": "json"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 360,
+        "y": 1680,
+        "wires": [
+            [
+                "abeeb3e812e247d5"
+            ]
+        ]
+    },
+    {
+        "id": "a10a2f2f27487333",
+        "type": "function",
+        "z": "baf4429beef64559",
+        "name": "soil_temperature",
+        "func": "let value = msg.payload[0].v;\nlet unit = msg.payload[0].u;\nlet property = msg.payload[0].n;\nlet dev_eui = msg.payload[0].dev_eui;\n\nvar zwavePayloadMsg = {payload: {\n    node_id: 5001,  // Assign a unique Z-Wave node ID\n    command_class: 49,  // Multilevel Sensor command class\n    property: property,\n    value: value,\n    unit: unit,\n    timestamp: Date.now()  // Current timestamp in milliseconds\n}};\n\nreturn zwavePayloadMsg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 1460,
+        "wires": [
+            []
+        ]
     },
     {
         "id": "b30ec6d3b9997c05",
@@ -8748,6 +8851,574 @@
         "wires": []
     },
     {
+        "id": "4bb5d1ea7ab4190e",
+        "type": "inject",
+        "z": "171b21f.9e6efde",
+        "name": "inject",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "10",
+        "topic": "",
+        "x": 150,
+        "y": 2240,
+        "wires": [
+            [
+                "9dad8e76e929a69c"
+            ]
+        ]
+    },
+    {
+        "id": "9dad8e76e929a69c",
+        "type": "function",
+        "z": "171b21f.9e6efde",
+        "name": "Get API",
+        "func": "//let hostname = flow.get('rainMachine_ip')\nlet hostname = '10.10.10.15';\nlet rainMachinePassword = flow.get('rainMachine_pass')\nmsg.url = 'http://'+hostname+':8080/apiVer'\nmsg.method = 'GET'\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 2240,
+        "wires": [
+            [
+                "a0d3a7d9d1c89b64",
+                "e76fa795bf862293"
+            ]
+        ]
+    },
+    {
+        "id": "a0d3a7d9d1c89b64",
+        "type": "http request",
+        "z": "171b21f.9e6efde",
+        "name": "",
+        "method": "use",
+        "ret": "txt",
+        "paytoqs": false,
+        "url": "",
+        "tls": "f21111d7.3018c",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 570,
+        "y": 2240,
+        "wires": [
+            [
+                "6f7a8cbcf8be3790",
+                "184d5be201e4d9da"
+            ]
+        ]
+    },
+    {
+        "id": "6f7a8cbcf8be3790",
+        "type": "json",
+        "z": "171b21f.9e6efde",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 710,
+        "y": 2240,
+        "wires": [
+            [
+                "c34c09a72b16499d"
+            ]
+        ]
+    },
+    {
+        "id": "c34c09a72b16499d",
+        "type": "debug",
+        "z": "171b21f.9e6efde",
+        "name": "debug 9",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 2160,
+        "wires": []
+    },
+    {
+        "id": "184d5be201e4d9da",
+        "type": "debug",
+        "z": "171b21f.9e6efde",
+        "name": "debug 10",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 2320,
+        "wires": []
+    },
+    {
+        "id": "e76fa795bf862293",
+        "type": "debug",
+        "z": "171b21f.9e6efde",
+        "name": "debug 11",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 536.6666259765625,
+        "y": 2178.333251953125,
+        "wires": []
+    },
+    {
+        "id": "3a8ec5ff557d0a6c",
+        "type": "comment",
+        "z": "171b21f.9e6efde",
+        "name": "Weather Services (parser API)",
+        "info": "",
+        "x": 280,
+        "y": 2540,
+        "wires": []
+    },
+    {
+        "id": "68f54a937485090a",
+        "type": "function",
+        "z": "171b21f.9e6efde",
+        "name": "parser/",
+        "func": "let hostname = flow.get('rainMachine_ip');\nlet access_token = flow.get('rainMachine_access_token');\n\n\nmsg.url = 'https://'+hostname+':8080/api/4/parser?access_token='+access_token;\nmsg.method = 'GET';\nmsg.payload = {};\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 2700,
+        "wires": [
+            [
+                "341ba44373c10e26"
+            ]
+        ]
+    },
+    {
+        "id": "341ba44373c10e26",
+        "type": "http request",
+        "z": "171b21f.9e6efde",
+        "name": "",
+        "method": "use",
+        "ret": "txt",
+        "paytoqs": false,
+        "url": "",
+        "tls": "f21111d7.3018c",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 650,
+        "y": 2700,
+        "wires": [
+            [
+                "798d0d2e4c6e01b4"
+            ]
+        ]
+    },
+    {
+        "id": "798d0d2e4c6e01b4",
+        "type": "json",
+        "z": "171b21f.9e6efde",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 830,
+        "y": 2700,
+        "wires": [
+            [
+                "57d7a69a01f46651"
+            ]
+        ]
+    },
+    {
+        "id": "e079c8b498d6bdc2",
+        "type": "inject",
+        "z": "171b21f.9e6efde",
+        "name": "",
+        "props": [
+            {
+                "p": "payload",
+                "v": "",
+                "vt": "date"
+            },
+            {
+                "p": "topic",
+                "v": "",
+                "vt": "string"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 220,
+        "y": 2700,
+        "wires": [
+            [
+                "68f54a937485090a"
+            ]
+        ]
+    },
+    {
+        "id": "57d7a69a01f46651",
+        "type": "debug",
+        "z": "171b21f.9e6efde",
+        "name": "parser",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1010,
+        "y": 2700,
+        "wires": []
+    },
+    {
+        "id": "af3ebc09b93b5409",
+        "type": "function",
+        "z": "171b21f.9e6efde",
+        "name": "Get Local Weather ",
+        "func": "let hostname = flow.get('rainMachine_ip');\nlet access_token = flow.get('rainMachine_access_token');\n\n\nmsg.url = 'https://'+hostname+':8080/api/4/parser/11?access_token='+access_token;\nmsg.method = 'GET';\nmsg.payload = {};\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 2800,
+        "wires": [
+            [
+                "282bfca4807d07ae"
+            ]
+        ]
+    },
+    {
+        "id": "282bfca4807d07ae",
+        "type": "http request",
+        "z": "171b21f.9e6efde",
+        "name": "",
+        "method": "use",
+        "ret": "txt",
+        "paytoqs": false,
+        "url": "",
+        "tls": "f21111d7.3018c",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 650,
+        "y": 2800,
+        "wires": [
+            [
+                "380332020e9b258b"
+            ]
+        ]
+    },
+    {
+        "id": "380332020e9b258b",
+        "type": "json",
+        "z": "171b21f.9e6efde",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 830,
+        "y": 2800,
+        "wires": [
+            [
+                "f3b6fe3a450baafc"
+            ]
+        ]
+    },
+    {
+        "id": "a452c2ba63608237",
+        "type": "inject",
+        "z": "171b21f.9e6efde",
+        "name": "",
+        "props": [
+            {
+                "p": "payload",
+                "v": "",
+                "vt": "date"
+            },
+            {
+                "p": "topic",
+                "v": "",
+                "vt": "string"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 220,
+        "y": 2800,
+        "wires": [
+            [
+                "af3ebc09b93b5409"
+            ]
+        ]
+    },
+    {
+        "id": "f3b6fe3a450baafc",
+        "type": "debug",
+        "z": "171b21f.9e6efde",
+        "name": "parser",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1010,
+        "y": 2800,
+        "wires": []
+    },
+    {
+        "id": "59d5b904d075ce12",
+        "type": "function",
+        "z": "171b21f.9e6efde",
+        "name": "Get Local Weather Data",
+        "func": "let hostname = flow.get('rainMachine_ip');\nlet access_token = flow.get('rainMachine_access_token');\n\n\nmsg.url = 'https://'+hostname+':8080/api/4/parser/11?access_token='+access_token;\nmsg.method = 'GET';\nmsg.payload = {};\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 2900,
+        "wires": [
+            [
+                "9516eeb26448e554"
+            ]
+        ]
+    },
+    {
+        "id": "9516eeb26448e554",
+        "type": "http request",
+        "z": "171b21f.9e6efde",
+        "name": "",
+        "method": "use",
+        "ret": "txt",
+        "paytoqs": false,
+        "url": "",
+        "tls": "f21111d7.3018c",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 650,
+        "y": 2900,
+        "wires": [
+            [
+                "965169017e749b8c"
+            ]
+        ]
+    },
+    {
+        "id": "965169017e749b8c",
+        "type": "json",
+        "z": "171b21f.9e6efde",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 830,
+        "y": 2900,
+        "wires": [
+            [
+                "f84f7f252bbd2601"
+            ]
+        ]
+    },
+    {
+        "id": "86714da61c861701",
+        "type": "inject",
+        "z": "171b21f.9e6efde",
+        "name": "",
+        "props": [
+            {
+                "p": "payload",
+                "v": "",
+                "vt": "date"
+            },
+            {
+                "p": "topic",
+                "v": "",
+                "vt": "string"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 220,
+        "y": 2900,
+        "wires": [
+            [
+                "59d5b904d075ce12"
+            ]
+        ]
+    },
+    {
+        "id": "f84f7f252bbd2601",
+        "type": "debug",
+        "z": "171b21f.9e6efde",
+        "name": "parser",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1010,
+        "y": 2900,
+        "wires": []
+    },
+    {
+        "id": "853b9318768acba0",
+        "type": "link in",
+        "z": "171b21f.9e6efde",
+        "name": "Forecast In",
+        "links": [
+            "9743aa7bb2d2ce01"
+        ],
+        "x": 205,
+        "y": 3020,
+        "wires": [
+            [
+                "63e6ff5bbbe98248"
+            ]
+        ]
+    },
+    {
+        "id": "63e6ff5bbbe98248",
+        "type": "function",
+        "z": "171b21f.9e6efde",
+        "name": "NOAA to RainMachine",
+        "func": "// Function to map NWS weather condition shortForecast to RainMachine's 'condition' code\nfunction mapCondition(shortForecast) {\n    shortForecast = shortForecast.toLowerCase();\n    \n    // Check for precipitation first, as it's often more important\n    if (shortForecast.includes(\"thunderstorms\") || shortForecast.includes(\"thunder\")) {\n        return 9; // Rain and Thunderstorms\n    }\n    if (shortForecast.includes(\"rain\") || shortForecast.includes(\"showers\")) {\n        return 12; // Showers\n    }\n    if (shortForecast.includes(\"snow\") || shortForecast.includes(\"flurries\")) {\n        return 16; // Snow\n    }\n    if (shortForecast.includes(\"sleet\") || shortForecast.includes(\"ice\")) {\n        return 19; // Sleet / freezing rain\n    }\n    if (shortForecast.includes(\"hail\")) {\n        return 17; // Hail\n    }\n    \n    // Now check for other conditions\n    if (shortForecast.includes(\"clear\") || shortForecast.includes(\"sunny\")) {\n        return 26; // Clear\n    }\n    if (shortForecast.includes(\"cloudy\") || shortForecast.includes(\"partly sunny\")) {\n        return 28; // Mostly cloudy\n    }\n    if (shortForecast.includes(\"overcast\")) {\n        return 27; // Cloudy\n    }\n    if (shortForecast.includes(\"fog\")) {\n        return 3; // Fog\n    }\n    if (shortForecast.includes(\"mist\")) {\n        return 14; // Light drizzle\n    }\n    if (shortForecast.includes(\"breezy\") || shortForecast.includes(\"windy\")) {\n        return 23; // Wind\n    }\n\n    // Default to a general condition if none of the above match\n    return 26; // Defaulting to 'Clear' if no specific condition is found\n}\n\n// Create a new array to hold the transformed weather data\nlet rainMachineWeather = [];\n\n// Loop through each forecast period in the NWS payload\nfor (let i = 0; i < msg.payload.properties.periods.length; i++) {\n    const period = msg.payload.properties.periods[i];\n    \n    // Parse the start time to a Unix timestamp (in seconds)\n    const timestamp = Math.floor(new Date(period.startTime).getTime() / 1000);\n    \n    // Extract temperature and convert to Celsius for RainMachine\n    const temperatureF = period.temperature;\n    const temperatureC = (temperatureF - 32) * 5/9;\n    \n    // Extract wind speed and convert to m/s\n    // NWS wind speed is a range like \"5 to 10 mph\". We'll use the first number.\n    const windSpeedMph = parseFloat(period.windSpeed.split(\" \")[0]);\n    const windSpeedMps = windSpeedMph * 0.44704;\n\n    // Extract probability of precipitation\n    const pop = period.probabilityOfPrecipitation.value || 0;\n    \n    // The RainMachine API requires QPF (Quantitative Precipitation Forecast) and RAIN values to be in metric units and for each hour or day.\n    // The NWS forecast gives us a chance of precipitation, but not a specific quantity (QPF/rain amount).\n    // The \"detailedForecast\" string sometimes mentions rainfall amounts (e.g., \"between a quarter and half of an inch possible\").\n    // We can try to parse this out to provide an estimated QPF value, or simply set it to a small value if the chance of precipitation is high.\n    // The code below is a simple heuristic to provide some value for QPF. A more robust solution might use regular expressions.\n    let qpfValue = null;\n    if (pop > 20) { // If there's a significant chance of rain\n        const detailed = period.detailedForecast.toLowerCase();\n        // A simple check for common phrases\n        if (detailed.includes(\"inch\")) {\n            // A very rough estimate based on the text\n            if (detailed.includes(\"quarter\")) qpfValue = 6.35; // 0.25 inches to mm\n            if (detailed.includes(\"half\")) qpfValue = 12.7; // 0.5 inches to mm\n            if (detailed.includes(\"one\")) qpfValue = 25.4; // 1 inch to mm\n        } else {\n            // If no amount is mentioned but rain is likely, provide a small default value\n            qpfValue = 1; // 1mm\n        }\n    }\n    \n    // Create the new weather object for RainMachine\n    const weatherData = {\n        \"timestamp\": timestamp,\n        \"maxtemp\": temperatureC,\n        \"mintemp\": temperatureC,\n        \"temperature\": temperatureC,\n        \"wind\": windSpeedMps,\n        \"solarrad\": null, // NWS forecast doesn't provide this directly\n        \"qpf\": qpfValue,\n        \"rain\": qpfValue,\n        \"minrh\": null, // NWS forecast doesn't provide min/max RH\n        \"maxrh\": null,\n        \"condition\": mapCondition(period.shortForecast),\n        \"pressure\": null, // Not available in the forecast payload\n        \"dewpoint\": null // Not available in the forecast payload\n    };\n    \n    rainMachineWeather.push(weatherData);\n}\n\n// Set the new payload structure and return the message\nlet hostname = flow.get('rainMachine_ip');\nlet access_token = flow.get('rainMachine_access_token');\n\nmsg.method = 'POST';\nmsg.url = 'https://'+hostname+':8080/api/4/parser/data?access_token='+access_token;\nmsg.payload = {\n    \"weather\": rainMachineWeather\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 3020,
+        "wires": [
+            [
+                "5ba0f3c0284522b0",
+                "80a52850559781d9"
+            ]
+        ]
+    },
+    {
+        "id": "5ba0f3c0284522b0",
+        "type": "debug",
+        "z": "171b21f.9e6efde",
+        "name": "RainMachine Forecast",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 640,
+        "y": 3280,
+        "wires": []
+    },
+    {
+        "id": "80a52850559781d9",
+        "type": "http request",
+        "z": "171b21f.9e6efde",
+        "name": "",
+        "method": "use",
+        "ret": "txt",
+        "paytoqs": false,
+        "url": "",
+        "tls": "f21111d7.3018c",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 670,
+        "y": 3020,
+        "wires": [
+            [
+                "38e6211afaf08bf2"
+            ]
+        ]
+    },
+    {
+        "id": "38e6211afaf08bf2",
+        "type": "json",
+        "z": "171b21f.9e6efde",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 850,
+        "y": 3020,
+        "wires": [
+            [
+                "690c78fc3aa11e38"
+            ]
+        ]
+    },
+    {
+        "id": "690c78fc3aa11e38",
+        "type": "debug",
+        "z": "171b21f.9e6efde",
+        "name": "Irrigation Weather",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1050,
+        "y": 3040,
+        "wires": []
+    },
+    {
         "id": "b12d515b3396e0b0",
         "type": "mqtt in",
         "z": "bf8b5ca4b28f6892",
@@ -9492,75 +10163,6 @@
         ]
     },
     {
-        "id": "76e907dd89c5b323",
-        "type": "google-home",
-        "z": "b78ed3d06ab6db61",
-        "d": true,
-        "conf": "09f2c70562eb4732",
-        "device": "17955",
-        "acknowledge": true,
-        "name": "",
-        "topic": "",
-        "x": 200,
-        "y": 140,
-        "wires": [
-            [
-                "4c3cae0bb00f7e75"
-            ]
-        ]
-    },
-    {
-        "id": "4c3cae0bb00f7e75",
-        "type": "debug",
-        "z": "b78ed3d06ab6db61",
-        "name": "doorbell",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 440,
-        "y": 140,
-        "wires": []
-    },
-    {
-        "id": "8b55369b6a873ecf",
-        "type": "google-home",
-        "z": "b78ed3d06ab6db61",
-        "conf": "09f2c70562eb4732",
-        "device": "3160",
-        "acknowledge": true,
-        "name": "Nest",
-        "topic": "",
-        "x": 180,
-        "y": 320,
-        "wires": [
-            [
-                "341474474b98c23b"
-            ]
-        ]
-    },
-    {
-        "id": "341474474b98c23b",
-        "type": "debug",
-        "z": "b78ed3d06ab6db61",
-        "name": "nest",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 350,
-        "y": 320,
-        "wires": []
-    },
-    {
         "id": "7cb2e4b6c4093704",
         "type": "inject",
         "z": "8ee38fc4c4808acf",
@@ -9574,7 +10176,7 @@
                 "vt": "str"
             }
         ],
-        "repeat": "",
+        "repeat": "28800",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
@@ -9802,7 +10404,8 @@
         "y": 200,
         "wires": [
             [
-                "12dd7158ef8f3f94"
+                "12dd7158ef8f3f94",
+                "9743aa7bb2d2ce01"
             ]
         ]
     },
@@ -9898,6 +10501,19 @@
         "statusType": "auto",
         "x": 1150,
         "y": 480,
+        "wires": []
+    },
+    {
+        "id": "9743aa7bb2d2ce01",
+        "type": "link out",
+        "z": "8ee38fc4c4808acf",
+        "name": "RainMachine Out",
+        "mode": "link",
+        "links": [
+            "853b9318768acba0"
+        ],
+        "x": 1565,
+        "y": 120,
         "wires": []
     },
     {
